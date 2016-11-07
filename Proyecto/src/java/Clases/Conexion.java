@@ -3,11 +3,10 @@ package Clases;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import java.sql.Connection;
-
+import java.sql.Connection; 
 
 public class Conexion {
-    protected Connection conexionBd;
+    public Connection conexionBd;
     
     private final String sgdb = "mysql";
     private final String servidor="localhost"; //DESARROLLO,localhost
@@ -27,18 +26,16 @@ public class Conexion {
         Class.forName(jdbc);
       // conexionBd = DriverManager.getConnection("jdbc:sqlserver://J-SE\\SQLJSE;databaseName=dbEscuela;user=Jse;password=j123;");
         conexionBd= DriverManager.getConnection(urlConexion,usuario,contra);
-       JOptionPane.showMessageDialog(null,"EXITO","Conexion Exitosa",JOptionPane.INFORMATION_MESSAGE);
         }
         catch(ClassNotFoundException | SQLException ex)
         {
          
-        JOptionPane.showMessageDialog(null,ex.getMessage(),"Error en Conexion :(",JOptionPane.ERROR_MESSAGE);
         }  
         
     }
     
     
-    protected void cerrarConexion()
+    public void cerrarConexion()
     {
         try {
             conexionBd.close();
@@ -50,4 +47,3 @@ public class Conexion {
 
     }
     }
-

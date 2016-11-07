@@ -4,9 +4,25 @@
         <servlet-name>Home</servlet-name>
         <servlet-class>Servlets.Home</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Cliente</servlet-name>
+        <servlet-class>Servlets.Ventas.Cliente_S</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProveedorS</servlet-name>
+        <servlet-class>Servlets.Compras.ProveedorS</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cliente</servlet-name>
+        <url-pattern>/Cliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProveedorS</servlet-name>
+        <url-pattern>/ProveedorS</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
