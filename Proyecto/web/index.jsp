@@ -15,6 +15,7 @@
         <form action="Home" method="post">  
         <input type="submit" id="conec" name="conec"> 
         </form>
+        hola
         
     </div>
  </div>
