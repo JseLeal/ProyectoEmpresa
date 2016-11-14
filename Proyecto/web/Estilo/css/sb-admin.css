@@ -26,8 +26,6 @@ body {
 }
 
 #page-wrapper {
-    border:8px solid #FF6ED9;
-    border-style: dotted;
     width: 85%;
     height: 700px;
     float: right;

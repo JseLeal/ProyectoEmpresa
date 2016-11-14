@@ -4,10 +4,11 @@
     Author     : Jose
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <link href="Estilo/css/sb-admin.css" rel="stylesheet">
-<jsp:include page="master.jsp"></jsp:include>
+<jsp:include page="master.html"></jsp:include>
 <%@page import="Servlets.Home"%>
+<%@page pageEncoding="UTF-8"%>
  <div id="page-wrapper">
     <div class="container-fluid">
         

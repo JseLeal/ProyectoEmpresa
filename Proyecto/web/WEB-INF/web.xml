@@ -4,9 +4,33 @@
         <servlet-name>Home</servlet-name>
         <servlet-class>Servlets.Home</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Producto_S</servlet-name>
+        <servlet-class>Servlets.Producto_S</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Marcas_S</servlet-name>
+        <servlet-class>Servlets.Marcas_S</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FacturaCompra_S</servlet-name>
+        <servlet-class>Servlets.Compras.FacturaCompra_S</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Producto_S</servlet-name>
+        <url-pattern>/Producto_S</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Marcas_S</servlet-name>
+        <url-pattern>/Marcas_S</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FacturaCompra_S</servlet-name>
+        <url-pattern>/FacturaCompra_S</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
