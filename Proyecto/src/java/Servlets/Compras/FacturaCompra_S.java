@@ -5,6 +5,7 @@
  */
 package Servlets.Compras;
 
+import Clases.Compras.FacturaCompra_C;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -32,15 +33,51 @@ public class FacturaCompra_S extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FacturaCompra_S</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FacturaCompra_S at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        int datoC=0;
+            int datoE=0;
+            String idVenta=request.getParameter("idVenta");
+            String nofactura=request.getParameter("nofactura");
+            String fechafactura=request.getParameter("fechafactura");
+            String idProveedor=request.getParameter("idProveedor");
+            String fecha_ingreso=request.getParameter("fecha_ingreso");
+            String idProducto=request.getParameter("idProducto");
+            String cantidad=request.getParameter("cantidad");
+            String precio_unitario=request.getParameter("precio_unitario");
+            datoC=idProveedor.indexOf(")");
+            
+            FacturaCompra_C maestroventas= new FacturaCompra_C();
+            
+            //insertar
+            if(request.getParameter("Insertar")!=null && 
+               request.getParameter("Eliminar")==null){
+            try{    
+            maestroventas.setNofactura(Integer.parseInt(nofactura));
+            maestroventas.setFechafactura(fechafactura);
+            maestroventas.setIdProveedor((Integer.parseInt(idProveedor.substring(0, datoC))));
+            maestroventas.setFecha_ingreso(fecha_ingreso);
+            maestroventas.setIdProducto(Integer.parseInt(idProducto));
+            maestroventas.setCantidad(cantidad);
+            maestroventas.setPrecio_unitario(Integer.parseInt(precio_unitario));
+            
+            maestroventas.Insertar();
+            }
+            catch(Exception e){
+                String ex=e.getMessage()+e.toString();
+                }
+            }
+            
+          //eliminar
+            else if(request.getParameter("Insertar")==null && 
+                    request.getParameter("Eliminar")!=null){
+                
+          try {
+                maestroventas.Eliminar();
+
+               } 
+                catch (Exception e) {
+                }
+          }
+            
         }
     }
 
