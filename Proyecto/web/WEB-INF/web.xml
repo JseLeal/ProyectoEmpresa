@@ -16,6 +16,18 @@
         <servlet-name>FacturaCompra_S</servlet-name>
         <servlet-class>Servlets.Compras.FacturaCompra_S</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Login_S</servlet-name>
+        <servlet-class>Servlets.Login_S</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Usuarios_S</servlet-name>
+        <servlet-class>Servlets.Usuarios_S</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CContra_S</servlet-name>
+        <servlet-class>Servlets.CContra_S</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
@@ -31,6 +43,18 @@
     <servlet-mapping>
         <servlet-name>FacturaCompra_S</servlet-name>
         <url-pattern>/FacturaCompra_S</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login_S</servlet-name>
+        <url-pattern>/Login_S</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Usuarios_S</servlet-name>
+        <url-pattern>/Usuarios_S</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CContra_S</servlet-name>
+        <url-pattern>/CContra_S</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

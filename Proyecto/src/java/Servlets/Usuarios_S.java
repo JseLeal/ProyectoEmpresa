@@ -5,9 +5,11 @@
  */
 package Servlets;
 
-import Clases.Marcas_C;
+import Clases.Usuarios_C;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Jose
  */
-public class Marcas_S extends HttpServlet {
+public class Usuarios_S extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,49 +31,63 @@ public class Marcas_S extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, Exception {
+                throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+           
+            String nombre=(String) request.getParameter("Usuario");
+            String Correo=(String) request.getParameter("Correo");
+            String Contrasena=(String) request.getParameter("Contrasena");
             
-            String Marca=request.getParameter("marca");
-            if(!"".equals(Marca))
-                    {
-                        Marcas_C marc= new Marcas_C();
-                        
-                        marc.setMarca(Marca);
-                        
+            Usuarios_C US=new Usuarios_C();
+            
             if(request.getParameter("Ingresar")!=null){
+            try{
+                if(nombre!=null && Contrasena!=null && Correo!=null)
                 {
-                    try{
-                    if(marc.Verificar()==null){
-                        marc.ingresar();
-                     request.getSession().setAttribute("MSG","Si");
+                US.setNombre(nombre);
+                US.setCorreo(Correo);
+                US.setContrasena(US.sha1(Contrasena));
+                US.ingresar();
+                   request.getSession().setAttribute("MSG","Si");
                     request.getSession().setAttribute("esta","true");
-                    response.sendRedirect("Marcas.jsp");  
-                    }
-                    else{marc.Modificar();
-                     request.getSession().setAttribute("MSG","Si");
-                    request.getSession().setAttribute("esta","true");
-                    response.sendRedirect("Marcas.jsp");  }
-                    }catch(Exception e){request.getSession().setAttribute("MSG","No");
-                    request.getSession().setAttribute("esta","true");
-                    response.sendRedirect("Marcas.jsp");}
+                    response.sendRedirect("Usuarios.jsp");  
                 }
+                else{request.getSession().setAttribute("MSG","No");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("Usuarios.jsp");  }
+            }
+            catch(NoSuchAlgorithmException | IOException ex){request.getSession().setAttribute("MSG","No");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("Usuarios.jsp");  }
+            }
+            else if(request.getParameter("Modificar")!=null){
+                try{
+                US.setCorreo(Correo);
+                US.Modificar();
+                request.getSession().setAttribute("MSG","Mod");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("Usuarios.jsp");  
+                }catch(Exception ex){request.getSession().setAttribute("MSG","NoMod");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("Usuarios.jsp");  }
             }
             else if(request.getParameter("Eliminar")!=null){
                 try{
-                marc.Eliminar();
-             request.getSession().setAttribute("MSG","El");
+                US.setNombre(nombre);
+                US.Eliminar();
+                request.getSession().setAttribute("MSG","El");
                     request.getSession().setAttribute("esta","true");
-                    response.sendRedirect("Marcas.jsp");  
-                }catch(Exception e){request.getSession().setAttribute("MSG","NoEl");
+                    response.sendRedirect("Usuarios.jsp");  
+                }catch(SQLException | IOException e){request.getSession().setAttribute("MSG","NoEL");
                     request.getSession().setAttribute("esta","true");
-                    response.sendRedirect("Marcas.jsp"); }
+                    response.sendRedirect("Usuarios.jsp");  }
             }
-            }
+            
         }
     }
 
@@ -89,8 +105,8 @@ public class Marcas_S extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(Marcas_S.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios_S.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -107,8 +123,8 @@ public class Marcas_S extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(Marcas_S.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuarios_S.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

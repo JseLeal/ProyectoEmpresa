@@ -64,7 +64,7 @@ public class Producto_C {
            C = new Conexion();
            C.abrirConexion();
            String query;
-           query = "Select idmarca,marca from marcas" ;
+           query = "Select idmarca,marca from marcas where Activo like 1" ;
             ResultSet consulta =  C.conexionBd.createStatement().executeQuery(query);
                   while (consulta.next())
                     {            
@@ -157,7 +157,7 @@ public class Producto_C {
      C.abrirConexion();
      String query;
       try{
-     query = "SELECT * WHERE producto like '"+getProducto()+"' and Activo like '1'";
+     query = "SELECT * FROM productos WHERE producto like '"+getProducto()+"' and Activo like '1'";
            parametro = (PreparedStatement) C.conexionBd.prepareStatement(query);
         
            ResultSet r = parametro.executeQuery();
@@ -169,8 +169,7 @@ public class Producto_C {
        
       }
       catch(Exception ex){
-      }
-      resultado="Error";
+      resultado="Error";}
      return resultado;
      }
      

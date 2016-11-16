@@ -11,7 +11,7 @@ a{
 body {
     margin-top: 100px;
     background-color: #FFF6FF;
-    font-size: 18px;
+    font-size: 19px;
 }
 
 @media(min-width:768px) {
@@ -143,12 +143,13 @@ ul.alert-dropdown {
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;
-        border-right-color: #8EB2FF !important; 
+        border-right-color: #8EB2FF !important;
     }
 
     .side-nav>li>a {
         width: 225px;
     }
+   
 
     .side-nav li a:hover,
     .side-nav li a:focus {

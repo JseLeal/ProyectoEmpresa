@@ -5,11 +5,10 @@
  */
 package Servlets;
 
-import Clases.Marcas_C;
+import Clases.Login_C;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Jose
  */
-public class Marcas_S extends HttpServlet {
+public class Login_S extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,47 +30,30 @@ public class Marcas_S extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, Exception {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-            String Marca=request.getParameter("marca");
-            if(!"".equals(Marca))
-                    {
-                        Marcas_C marc= new Marcas_C();
-                        
-                        marc.setMarca(Marca);
-                        
-            if(request.getParameter("Ingresar")!=null){
-                {
-                    try{
-                    if(marc.Verificar()==null){
-                        marc.ingresar();
-                     request.getSession().setAttribute("MSG","Si");
+             String usuario=(String) request.getParameter("USUARIO");
+         String contra=(String) request.getParameter("Contrasena");
+         Login_C Log=new Login_C();
+         if(request.getParameter("Ingresar")!=null){
+             try{
+                    Log.setUsuario(usuario);
+                    Log.setContrasena(Log.sha1(contra));
+                    if(Log.Verificar()!=null){
+                    request.getSession().setAttribute("US",usuario);
+                    response.sendRedirect("Home.jsp");
+                    }else{
+                    request.getSession().setAttribute("MSG","No");
                     request.getSession().setAttribute("esta","true");
-                    response.sendRedirect("Marcas.jsp");  
-                    }
-                    else{marc.Modificar();
-                     request.getSession().setAttribute("MSG","Si");
+                    response.sendRedirect("index.jsp"); }
+             }
+             catch(NoSuchAlgorithmException | IOException e){   request.getSession().setAttribute("MSG","Error");
                     request.getSession().setAttribute("esta","true");
-                    response.sendRedirect("Marcas.jsp");  }
-                    }catch(Exception e){request.getSession().setAttribute("MSG","No");
-                    request.getSession().setAttribute("esta","true");
-                    response.sendRedirect("Marcas.jsp");}
-                }
-            }
-            else if(request.getParameter("Eliminar")!=null){
-                try{
-                marc.Eliminar();
-             request.getSession().setAttribute("MSG","El");
-                    request.getSession().setAttribute("esta","true");
-                    response.sendRedirect("Marcas.jsp");  
-                }catch(Exception e){request.getSession().setAttribute("MSG","NoEl");
-                    request.getSession().setAttribute("esta","true");
-                    response.sendRedirect("Marcas.jsp"); }
-            }
-            }
+                    response.sendRedirect("index.jsp"); }
+         
+         }
         }
     }
 
@@ -87,11 +69,7 @@ public class Marcas_S extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(Marcas_S.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -105,11 +83,7 @@ public class Marcas_S extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(Marcas_S.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

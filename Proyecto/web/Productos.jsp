@@ -61,7 +61,7 @@
                estado="false";
             }else{estado="true";}  %>
 <link href="Estilo/css/sb-admin.css" rel="stylesheet">
-<jsp:include page="master.html"></jsp:include>
+<jsp:include page="master.jsp"></jsp:include>
 <%@page import="Servlets.Producto_S"%>
 <%@page pageEncoding="UTF-8"%>
  <div id="page-wrapper">
@@ -114,9 +114,11 @@
             <input class="btn btn-success" type="submit" name="Ingresar" value="Ingresar"/>
             <input class="btn btn-warning" type="submit" name="Modificar" value="Modificar"/>
             <input class="btn btn-danger" type="submit" name="Eliminar" value="Eliminar"/>
-         
+            <br>
+            <a href="Marcas.jsp">IR A MARCAS</a>
            
             <label visible="<%= estado %>"> <%= nombre_variable%> </label>
+            
         </form>
     </div>
  </div>

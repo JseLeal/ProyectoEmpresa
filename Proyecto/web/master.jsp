@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-
+<% 
+   String usuario=(String)session.getAttribute("US");
+            %>
 <html >
     <head>
     <meta charset="utf-8">
@@ -31,26 +33,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.jsp">Home</a>
+                <a class="navbar-brand" href="Home.jsp">Home</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
              
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> MI USUARIO YO <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= usuario %> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                            <a href="CContra.jsp"><i class="fa fa-fw fa-gear"></i>Cambiar Contraseña</a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="index.jsp"><i class="fa fa-fw fa-power-off"></i> Salir</a>
                         </li>
                     </ul>
                 </li>
@@ -59,43 +55,46 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Compras <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="glyphicon glyphicon-shopping-cart"></i> Compras <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
-                                <a href="Proveedores.jsp">Proveedores</a>
+                               <a href="Proveedores.jsp"><i class="glyphicon glyphicon-globe"></i> Proveedores</a>
                             </li>
                             <li>
-                                <a href="#">Facturas de Compra</a>
+                                <a href="#"><i class="glyphicon glyphicon-save-file"></i>Facturas de Compra</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>       
                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i> Ventas <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="glyphicon glyphicon-credit-card"></i> Ventas <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo2" class="collapse">
                             <li>
-                                <a href="Clientes.jsp">Clientes</a>
+                                 <a href="Clientes.jsp"><i class="glyphicon glyphicon-heart-empty"></i>Clientes</a>
                             </li>
                             <li>
-                                <a href="#">Facturas de Ventas</a>
+                                <a href="#"><i class="glyphicon glyphicon-open-file"></i>Facturas de Ventas</a>
                             </li>
                         </ul>
                     </li>
                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo3"><i class="fa fa-fw fa-arrows-v"></i> OrganizaciÃ³n <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo3"><i class="glyphicon glyphicon-list-alt"></i> Organizacion <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo3" class="collapse">
                             <li>
-                                <a href="#">Puestos</a>
+                                <a href="puestos.jsp"><i class="glyphicon glyphicon-bookmark"></i>Puestos</a>
                             </li>
                             <li>
-                                <a href="#">Usuarios</a>
+                                <a href="Usuarios.jsp"><i class="glyphicon glyphicon-user"></i>Usuarios</a>
+                            </li>
+                            <li>
+                               <a href="#"><i class="glyphicon glyphicon-modal-window"></i>Empleados</a>
                             </li>
                               <li>
-                                <a href="Marcas.jsp">Marcas</a>
+                                  <a href="Marcas.jsp"><i class="glyphicon glyphicon-tags"></i>Marcas</a>
                             </li>
                         </ul>
                     </li>
                    <li>
-                     <a href="Productos.jsp">Productos</a>
+                       <a href="Productos.jsp"><i class="glyphicon glyphicon-leaf"></i>Productos</a>
                    </li>
                 </ul>
             </div>
@@ -115,3 +114,4 @@
 </body>
 
 </html>
+
