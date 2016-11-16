@@ -5,12 +5,8 @@
  */
 package Clases.Ventas;
 import Clases.Conexion;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 /**
  *

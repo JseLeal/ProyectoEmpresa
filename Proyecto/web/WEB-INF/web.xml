@@ -17,6 +17,7 @@
         <servlet-class>Servlets.Compras.FacturaCompra_S</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>Login_S</servlet-name>
         <servlet-class>Servlets.Login_S</servlet-class>
     </servlet>
@@ -27,6 +28,10 @@
     <servlet>
         <servlet-name>CContra_S</servlet-name>
         <servlet-class>Servlets.CContra_S</servlet-class>
+=======
+        <servlet-name>MaestroDetalleV_S</servlet-name>
+        <servlet-class>Servlets.Ventas.MaestroDetalleV_S</servlet-class>
+>>>>>>> origin/Union
     </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
@@ -45,6 +50,7 @@
         <url-pattern>/FacturaCompra_S</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>Login_S</servlet-name>
         <url-pattern>/Login_S</url-pattern>
     </servlet-mapping>
@@ -55,6 +61,10 @@
     <servlet-mapping>
         <servlet-name>CContra_S</servlet-name>
         <url-pattern>/CContra_S</url-pattern>
+=======
+        <servlet-name>MaestroDetalleV_S</servlet-name>
+        <url-pattern>/MaestroDetalleV_S</url-pattern>
+>>>>>>> origin/Union
     </servlet-mapping>
     <session-config>
         <session-timeout>
