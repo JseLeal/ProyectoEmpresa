@@ -16,6 +16,10 @@
         <servlet-name>FacturaCompra_S</servlet-name>
         <servlet-class>Servlets.Compras.FacturaCompra_S</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MaestroDetalleV_S</servlet-name>
+        <servlet-class>Servlets.Ventas.MaestroDetalleV_S</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>FacturaCompra_S</servlet-name>
         <url-pattern>/FacturaCompra_S</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MaestroDetalleV_S</servlet-name>
+        <url-pattern>/MaestroDetalleV_S</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

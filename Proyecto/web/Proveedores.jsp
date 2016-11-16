@@ -12,32 +12,39 @@
 <div id="page-wrapper">
     <div class="container-fluid">
         <form action="ProveedorS" method="post">
-             <table>
-                <tr>
+            
+            <table class="table">
+                 
+            <tr>
                 <th>Id Proveedor</th>
-                <td><input type="text" name="idProveedor"></td>
-                </tr>
+                <td><input class="form-control" type="text" name="idProveedor"></td>
+                <td> </td> <td> </td> <td> </td> <td> </td> <td> </td> <td> </td>
+            </tr>
+                
                 <tr>
                 <th>Proveedor</th>
-                <td><input type="text" name="Proveedor"></td>
+                <td><input class="form-control" type="text" name="Proveedor"></td>
                 </tr>
+                
                 <tr>
                 <th>NIT</th>
-                <td><input type="text" name="NIT"></td>
+                <td><input class="form-control" type="text" name="NIT"></td>
                 </tr>
+                
                 <tr>
                 <th>Direccion</th>
-                <td><input type="text" name="Direccion"></td>
+                <td><input class="form-control" type="text" name="Direccion"></td>
                 </tr>
+                
                 <tr>
                 <th>Telefono</th>
-                <td><input type="text" name="Telefono"></td>
+                <td><input class="form-control" type="text" name="Telefono"></td>
                 </tr>
             </table>
             
-                <input type="submit" value="Insertar" name="Insertar" />
-                <input type="submit" value="Modificar" name="Modificar" />
-                <input type="submit" value="Eliminar" name="Eliminar" />
+                <input class="btn btn-success" type="submit" value="Insertar" name="Insertar" />
+                <input class="btn btn-warning" type="submit" value="Modificar" name="Modificar" />
+                <input class="btn btn-danger" type="submit" value="Eliminar" name="Eliminar" />
         </form>
     </div>
 </div>
