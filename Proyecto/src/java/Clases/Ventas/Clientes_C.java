@@ -6,6 +6,7 @@
 package Clases.Ventas;
 import Clases.Conexion;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -124,19 +125,18 @@ public class Clientes_C {
         String query="";
         
            
-           query = "UPDATE clientes SET idCliente=?, nombres=?, apellidos=?, NIT=?, genero=?, telefono= ?,correo_electronico=?, fechaingreso=?" +
-                                            "where idCliente=?";
+           query = "update clientes set  nombres=?, apellidos=?, NIT=?, genero=?, telefono= ?,correo_electronico=?, fechaingreso=?" +
+                                            "where idCliente='"+getIdCliente()+"'and Activo like '1' ";
            
            campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
            
-           campo.setInt(1, getIdCliente());
-           campo.setString(2, getNombres());
-           campo.setString(3, getApellidos());
-           campo.setInt(4, getNIT());
-           campo.setInt(5, getGenero());
-           campo.setInt(6, getTelefono());
-           campo.setString(7, getCorreoElectronico());
-           campo.setString(8, getFechaingreso());
+           campo.setString(1, getNombres());
+           campo.setString(2, getApellidos());
+           campo.setInt(3, getNIT());
+           campo.setInt(4, getGenero());
+           campo.setInt(5, getTelefono());
+           campo.setString(6, getCorreoElectronico());
+           campo.setString(7, getFechaingreso());
                   
          campo.executeUpdate();
            C.cerrarConexion();
@@ -153,17 +153,39 @@ public class Clientes_C {
         C.abrirConexion();
         String query="";
         
-        query = "DELETE FROM clientes where idCliente=?"; 
+        query = "update clientes set Activo='0' where idCliente like '"+getIdCliente()+"'"; 
         
         campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
-        campo.setString(1, String.valueOf(getIdCliente()));
-           
-
+ 
         campo.executeUpdate();
-           C.cerrarConexion();
+        C.cerrarConexion();
         }
         catch(Exception e){
         throw(e);
     }
 }
+    
+    public int ConsultaC() throws SQLException{
+    int id=0;
+    Conexion C=new Conexion();
+    try{ 
+    C.abrirConexion(); 
+    String query;
+    
+    query=" select idCliente from clientes where nombres like  '" + getNombres()+ "'  and apellidos like'" + getApellidos() + "' and Activo like '1' ";
+    
+    campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
+    
+    ResultSet guardar=campo.executeQuery();
+    
+    while(guardar.next()){
+    id=guardar.getInt("idCliente");
+    }
+    return id;           
+  }
+  catch(Exception ex)
+  { }
+   C.cerrarConexion();
+   return id;
+  }
     }

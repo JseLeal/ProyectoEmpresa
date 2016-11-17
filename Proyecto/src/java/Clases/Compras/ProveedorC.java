@@ -7,6 +7,7 @@ package Clases.Compras;
 
 import Clases.Conexion;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -94,15 +95,14 @@ public class ProveedorC {
         C.abrirConexion();
         String query="";
            
-           query = "UPDATE proveedores set idProveedor=?, proveedor=?, NIT=?, direccion=?, telefono= ?" + "where idProveedor=?";
+           query = "update proveedores set  proveedor=?, NIT=?, direccion=?, telefono=?" + "where idProveedor='" + getIdProveedor() + "' and Activo like '1' ";
            
            campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
            
-           campo.setInt(1, getIdProveedor());
-           campo.setString(2, getProveedor());
-           campo.setInt(3, getNIT());
-           campo.setString(4, getDireccion());
-           campo.setInt(6, getTelefono());
+           campo.setString(1, getProveedor());
+           campo.setInt(2, getNIT());
+           campo.setString(3, getDireccion());
+           campo.setInt(4, getTelefono());
                   
            campo.executeUpdate();
            C.cerrarConexion();
@@ -119,10 +119,9 @@ public class ProveedorC {
         C.abrirConexion();
         String query="";
         
-        query = "DELETE FROM proveedores where idProveedor=?"; 
+        query = "update proveedores set Activo='0' where idProveedor like '"+getIdProveedor()+"'"; 
         
         campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
-        campo.setInt(1, getIdProveedor());
            
 
            campo.executeUpdate();
@@ -133,4 +132,28 @@ public class ProveedorC {
         }
     }
     
-}
+     public int ConsultaP() throws SQLException{
+    int id=0;
+    Conexion C=new Conexion();
+    try{ 
+    C.abrirConexion(); 
+    String query;
+    
+    query=" select idProveedor from proveedores where proveedor like  '" + getProveedor()+ "' and Activo like '1' ";
+    
+    campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
+    
+    ResultSet guardar=campo.executeQuery();
+    
+    while(guardar.next()){
+    id=guardar.getInt("idProveedor");
+    }
+    return id;           
+  }
+  catch(Exception ex)
+  { }
+   C.cerrarConexion();
+   return id;
+  }
+    }
+    

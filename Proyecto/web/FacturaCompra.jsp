@@ -3,7 +3,32 @@
     Created on : 12-nov-2016, 20:38:32
     Author     : Jose
 --%>
-
+<%
+            String nombre_variable="";
+            String estado="false";
+            if(session.getAttribute("MSG")!=null)
+            {
+                if((String)session.getAttribute("MSG")=="Si")
+                {
+                nombre_variable="La factura compra se ha ingresado correctamente.";
+                } else if((String)session.getAttribute("MSG")=="No") 
+                        { nombre_variable="La factura compra no se ha ingresado correctamente.";
+                        }
+                else if((String)session.getAttribute("MSG")=="El") 
+                        { nombre_variable="No es posible eliminar las facturas.";
+                        }
+                else if((String)session.getAttribute("MSG")=="NoEl") 
+                        { nombre_variable="La factura compra no se ha eliminado correctamente.";
+                        }
+                else if((String)session.getAttribute("MSG")=="Existe") 
+                        { nombre_variable="La factura compra ya existe.";
+                        }
+           }
+            if (session.getAttribute("esta")==null)
+            {
+               estado="false";
+            }else{estado="true";}  
+%>
 <%@page import="Clases.Compras.FacturaCompra_C"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Clases.Ventas.MaestroDetalleV_C"%>
@@ -48,9 +73,16 @@
                     <td><input class="form-control" type="Date" name="fecha_ingreso"></td>
                 </tr>
                 
-                <tr>
+               <tr>
                 <th>Id Producto</th>
-                <td><input class="form-control" type="text" name="idProducto"></td>
+                <td><select class="form-control" type="text" name="idProducto">
+                <%  MaestroDetalleV_C p=new MaestroDetalleV_C();
+                                ArrayList <String> L= p.mostrarProductos();
+                                for (String dat:L)
+                                  { %>
+                                <option value="<%=dat%>"><%=dat%></option>
+                               <% } %>        
+                <select></td>
                 </tr>
                 
                 <tr>
@@ -70,3 +102,6 @@
         </form>
     </div>
 </div>
+                 <% request.getSession().setAttribute("MSG",null);
+            request.getSession().setAttribute("esta","false");
+        %>

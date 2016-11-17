@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlets.Ventas;
+package Servlets.Compras;
 
-import Clases.Ventas.Clientes_C;
+import Clases.Compras.ProveedorC;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Usuario
  */
-public class Cliente_S extends HttpServlet {
+public class Proveedores_S extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,86 +34,85 @@ public class Cliente_S extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-               
-            String idCliente = request.getParameter("idCliente");
-            String Nombre=request.getParameter("Nombre");
-            String Apellido=request.getParameter("Apellido");
-            String NIT=request.getParameter("NIT");
-            String Genero=request.getParameter("Genero");
-            String Telefono=request.getParameter("Telefono");
-            String CorreoE=request.getParameter("CorreoE");
-            String FechaIngreso=request.getParameter("FechaIngreso");
-            
-            
-            Clientes_C varclientes=new Clientes_C();
-            
-            //insertar
-            if(request.getParameter("Insertar")!=null && request.getParameter("Modificar")==null && 
-               request.getParameter("Eliminar")==null){
-                
-                try{ 
-            varclientes.setNombre(Nombre);
-            varclientes.setApellidos(Apellido);
-            varclientes.setNIT(Integer.parseInt(NIT));
-            varclientes.setGenero(Integer.parseInt(Genero));
-            varclientes.setTelefono(Integer.parseInt(Telefono));
-            varclientes.setCorreoElectronico(CorreoE);        
-            varclientes.setFechaingreso(FechaIngreso);
-            varclientes.Insertar();
-                             
-                } 
-                catch (SQLException ex) {
-                    trhow(ex);
-                    Logger.getLogger(Cliente_S.class.getName()).log(Level.SEVERE, null, ex);
-            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>HUBO UN ERROR</title>");            
+            out.println("<title>Servlet ProveedoresS</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Cliente at " + request.getContextPath() + "NO PUDE HACERLO PERDONAME</h1>");
+            out.println("<h1>Servlet ProveedoresS at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+            
+            String idProveedor = request.getParameter("idProveedor");
+            String Proveedor=request.getParameter("Proveedor");
+            String NIT=request.getParameter("NIT");
+            String Direccion=request.getParameter("Direccion");
+            String Telefono=request.getParameter("Telefono");
+            
+            
+            ProveedorC varproveedores=new ProveedorC();
+            
+           //insertar
+            if(request.getParameter("Insertar")!=null && request.getParameter("Modificar")==null && 
+               request.getParameter("Eliminar")==null){
+             try{     
+            varproveedores.setProveedor(Proveedor);
+            varproveedores.setNIT(Integer.parseInt(NIT));
+            varproveedores.setDireccion(Direccion);
+            varproveedores.setTelefono(Integer.parseInt(Telefono)); 
+            varproveedores.Insertar();
+            request.getSession().setAttribute("MSG","Si");
+            request.getSession().setAttribute("esta","true");
+            response.sendRedirect("Proveedores.jsp");
+            }
+            catch (SQLException e) {
+                request.getSession().setAttribute("MSG","No");
+                request.getSession().setAttribute("esta","true");
+                response.sendRedirect("Proveedores.jsp");
                 }
             }
             
            //modificar
             else if(request.getParameter("Insertar")==null && request.getParameter("Modificar")!=null && 
                     request.getParameter("Eliminar")==null){
-                
-            varclientes.setIdCliente(Integer.parseInt(idCliente));
-            varclientes.setNombre(Nombre);
-            varclientes.setApellidos(Apellido);
-            varclientes.setNIT(Integer.parseInt(NIT));
-            varclientes.setGenero(Integer.parseInt(Genero));
-            varclientes.setTelefono(Integer.parseInt(Telefono));
-            varclientes.setCorreoElectronico(CorreoE);
-            varclientes.setFechaingreso(FechaIngreso);
-           
-                try {
-                    varclientes.Modificar();
-                } 
-                catch (SQLException ex) {
-                    trhow(ex);
-                    Logger.getLogger(Cliente_S.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            try{
+            varproveedores.setProveedor(Proveedor);
+            varproveedores.setIdProveedor(varproveedores.ConsultaP());
+            varproveedores.setNIT(Integer.parseInt(NIT));
+            varproveedores.setDireccion(Direccion);
+            varproveedores.setTelefono(Integer.parseInt(Telefono));
+            varproveedores.Modificar();
+            
+            request.getSession().setAttribute("MSG","Mod");
+            request.getSession().setAttribute("esta","true");
+            response.sendRedirect("Proveedores.jsp");
             }
+            catch (SQLException e){
+                request.getSession().setAttribute("MSG","NoMod");
+                request.getSession().setAttribute("esta","true");
+                response.sendRedirect("Proveedores.jsp");
+            
+            }
+        }
             
           //eliminar
             else if(request.getParameter("Insertar")==null && request.getParameter("Modificar")==null && 
                     request.getParameter("Eliminar")!=null){
-                
-                varclientes.setIdCliente(Integer.parseInt(idCliente));
-                
-                try {
-                    varclientes.Eliminar();
-                } 
-                catch (SQLException ex) {
-                    Logger.getLogger(Cliente_S.class.getName()).log(Level.SEVERE, null, ex);
+               try {
+                varproveedores.setProveedor(Proveedor);
+                varproveedores.setIdProveedor(varproveedores.ConsultaP());
+                varproveedores.Eliminar();
+                request.getSession().setAttribute("MSG","El");
+                request.getSession().setAttribute("esta","true");
+                response.sendRedirect("Proveedores.jsp");
+               } 
+                catch (SQLException e) {
+                  request.getSession().setAttribute("MSG","NoEl");
+                  request.getSession().setAttribute("esta","true");
+                  response.sendRedirect("Proveedores.jsp");
                 }
-            }
+          }
         }
     }
 
@@ -157,9 +154,5 @@ public class Cliente_S extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void trhow(SQLException ex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

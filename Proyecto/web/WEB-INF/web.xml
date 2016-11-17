@@ -17,7 +17,6 @@
         <servlet-class>Servlets.Compras.FacturaCompra_S</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>Login_S</servlet-name>
         <servlet-class>Servlets.Login_S</servlet-class>
     </servlet>
@@ -28,10 +27,26 @@
     <servlet>
         <servlet-name>CContra_S</servlet-name>
         <servlet-class>Servlets.CContra_S</servlet-class>
-=======
+    </servlet>
+    <servlet>
         <servlet-name>MaestroDetalleV_S</servlet-name>
         <servlet-class>Servlets.Ventas.MaestroDetalleV_S</servlet-class>
->>>>>>> origin/Union
+    </servlet>
+    <servlet>
+        <servlet-name>ProveedoresS</servlet-name>
+        <servlet-class>Servlets.ProveedoresS</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Clientes_S</servlet-name>
+        <servlet-class>Servlets.Ventas.Clientes_S</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Proveedores_S</servlet-name>
+        <servlet-class>Servlets.Compras.Proveedores_S</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Puestos_S</servlet-name>
+        <servlet-class>Servlets.Puestos_S</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
@@ -50,7 +65,6 @@
         <url-pattern>/FacturaCompra_S</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>Login_S</servlet-name>
         <url-pattern>/Login_S</url-pattern>
     </servlet-mapping>
@@ -61,14 +75,28 @@
     <servlet-mapping>
         <servlet-name>CContra_S</servlet-name>
         <url-pattern>/CContra_S</url-pattern>
-=======
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>MaestroDetalleV_S</servlet-name>
         <url-pattern>/MaestroDetalleV_S</url-pattern>
->>>>>>> origin/Union
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProveedoresS</servlet-name>
+        <url-pattern>/ProveedoresS</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Clientes_S</servlet-name>
+        <url-pattern>/Clientes_S</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Proveedores_S</servlet-name>
+        <url-pattern>/Proveedores_S</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Puestos_S</servlet-name>
+        <url-pattern>/Puestos_S</url-pattern>
     </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
 </web-app>

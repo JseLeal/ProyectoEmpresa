@@ -35,17 +35,10 @@ public class MaestroDetalleV_S extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MaestroDetalleV_S</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet MaestroDetalleV_S at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            
             int datoC=0;
             int datoE=0;
+            int datoP=0;
             String idVenta=request.getParameter("idVenta");
             String nofactura=request.getParameter("nofactura");
             String serie=request.getParameter("serie");
@@ -59,6 +52,7 @@ public class MaestroDetalleV_S extends HttpServlet {
             String precio_unitario=request.getParameter("precio_unitario");
             datoC=idCliente.indexOf(")");
             datoE=idEmpleado.indexOf(")");
+            datoP=idProducto.indexOf(")");
             
             MaestroDetalleV_C maestroventas= new MaestroDetalleV_C();
             
@@ -72,31 +66,47 @@ public class MaestroDetalleV_S extends HttpServlet {
             maestroventas.setIdCliente((Integer.parseInt(idCliente.substring(0, datoC))));
             maestroventas.setIdEmpleado(Integer.parseInt(idEmpleado.substring(0, datoE)));
             maestroventas.setFecha_ingreso(fecha_ingreso);
-            maestroventas.setIdProducto(Integer.parseInt(idProducto));
+            maestroventas.setIdProducto(Integer.parseInt(idProducto.substring(0,datoP)));
             maestroventas.setCantidad(cantidad);
             maestroventas.setPrecio_unitario(Integer.parseInt(precio_unitario));
             
             maestroventas.Insertar();
+          
+            maestroventas.modificarExistencia();
+            
+            request.getSession().setAttribute("MSG","Si");
+            request.getSession().setAttribute("esta","true");
+            response.sendRedirect("MaestroDetalleV.jsp"); 
             }
             catch(Exception e){
                 String ex=e.getMessage()+e.toString();
+                request.getSession().setAttribute("MSG","No");
+                request.getSession().setAttribute("esta","true");
+                response.sendRedirect("MaestroDetalleV.jsp");
                 }
             }
             
           //eliminar
             else if(request.getParameter("Insertar")==null && 
                     request.getParameter("Eliminar")!=null){
-                
-          maestroventas.setIdVenta(Integer.parseInt(idVenta));
-          try {
-                maestroventas.Eliminar();
-
+                try {
+               
+                request.getSession().setAttribute("MSG","El");
+                request.getSession().setAttribute("esta","true");
+                response.sendRedirect("MaestroDetalleV.jsp");
                } 
                 catch (Exception e) {
+                    request.getSession().setAttribute("MSG","NoEl");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("MaestroDetalleV.jsp");
                 }
+          
           }
             
-        }
+        }catch (Exception e) {
+                
+                    response.sendRedirect("MaestroDetalleV.jsp");
+                }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

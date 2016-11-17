@@ -1,47 +1,50 @@
-<%@page import="java.sql.*"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>PUESTOS</title>
-    </head>
-    <body>
-        <h1 aling="center">PUESTOS</h1>
-        <table border="1" width="400"aling="center">
-            <tr>
-                <th colspan="">mantenimiento puestos /th>
-                <th><img src="iconos/agregar.png"widht="30" height="30"></th>        
-            </tr>
-            <tr bgcolor="blue">
-             <tr>idpuestos</tr><tr>puestos</tr><tr>accion</tr>
-            </tr>
-            <%
-            Connection con=null;
-            Statement  sta=null;
-            ResultSet res=null;
-            try{
-                Class.forName("com.mysql.jdbc.Driver");
-                con=DriverManager.getConnection
-        ("jdbc:mysql://localhost/dbempresa?user=root&password=");
-            sta=con.createStatement();
-            res=sta.executeQuery("select * from puestos");
-            while (res.next())
-            { %>
-            <tr> 
-                <th><%=res.getString(1)%></th>
-                <th><%=res.getString(2)%></th>
-                <th><img src="iconos/editar.png"widht="20" height="20">||
-                    <img src="iconos/eliminar.png"widht="20" height="20">
-                </th>
-            </tr>
-            <%
-            }
-sta.close();
-res.close();
-con.close();
-            } catch (Exception e){}
-            %>
-        </table>
-    </body>
-</html>
+<%String nombre_variable="";
+            String estado="false";
+            if(session.getAttribute("MSG")!=null)
+            {
+                if((String)session.getAttribute("MSG")=="Si")
+                {
+                nombre_variable="El puesto se ha ingresado correctamente.";
+                } else if((String)session.getAttribute("MSG")=="No") 
+                        { nombre_variable="El puesto no se ha ingresado correctamente.";
+                        }
+                else if((String)session.getAttribute("MSG")=="El") 
+                        { nombre_variable="El puesto se ha eliminado correctamente.";
+                        }
+                else if((String)session.getAttribute("MSG")=="NoEl") 
+                        { nombre_variable="El puesto no se ha eliminado correctamente.";
+                        }
+                else if((String)session.getAttribute("MSG")=="Existe") 
+                        { nombre_variable="El nombre del puesto ya existe.";
+                        }
+           }
+            if (session.getAttribute("esta")==null)
+            {
+               estado="false";
+            }else{estado="true";}  %>
+<link href="Estilo/css/sb-admin.css" rel="stylesheet">
+<jsp:include page="master.jsp"></jsp:include>
+<%@page import="Servlets.Puestos_S"%>
+<%@page pageEncoding="UTF-8"%>
+
+ <div id="page-wrapper">
+    <div class="container-fluid">
+        <form action="Puestos_S" method="POST">  
+         <table class="table">
+             <tr>
+                 <th>Puesto</th>
+                 <td><input class="form-control" type="text" name="puesto" id="puesto"/></td>
+             </tr>
+         </table> 
+            <input class="btn btn-success" type="submit" name="Ingresar" value="Ingresar"/>
+            <input class="btn btn-danger" type="submit" name="Eliminar" value="Eliminar"/>
+            <label visible="<%= estado %>"> <%= nombre_variable%> </label>
+            <BR>
+            <a href="empleados.jsp">IR A EMPLEADOS</a>
+        </form>
+</div>
+ </div>
+        
+            <% request.getSession().setAttribute("MSG",null);
+            request.getSession().setAttribute("esta","false");%>
+

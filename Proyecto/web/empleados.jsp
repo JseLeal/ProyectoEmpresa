@@ -1,8 +1,9 @@
 <%-- 
-    Document   : Clientes
-    Created on : Oct 24, 2016, 5:37:34 PM
-    Author     : Usuario
+    Document   : empleados
+    Created on : 16-nov-2016, 18:19:35
+    Author     : Jose
 --%>
+
 <%
  String nombre_variable="";
             String estado="false";
@@ -10,24 +11,24 @@
             {
                 if((String)session.getAttribute("MSG")=="Si")
                 {
-                nombre_variable="El cliente se ha ingresado correctamente.";
+                nombre_variable="El empleado se ha ingresado correctamente.";
                 } else if((String)session.getAttribute("MSG")=="No") 
-                        { nombre_variable="El cliente no se ha ingresado correctamente.";
+                        { nombre_variable="El empleado no se ha ingresado correctamente.";
                         }
                 else if((String)session.getAttribute("MSG")=="Mod") 
-                        { nombre_variable="El cliente se ha modificado correctamente.";
+                        { nombre_variable="El empleado se ha modificado correctamente.";
                         }
                 else if((String)session.getAttribute("MSG")=="NoMod") 
-                        { nombre_variable="El cliente no se ha modificado correctamente.";
+                        { nombre_variable="El empleado no se ha modificado correctamente.";
                         }
                 else if((String)session.getAttribute("MSG")=="El") 
-                        { nombre_variable="El cliente se ha eliminado correctamente.";
+                        { nombre_variable="El empleado se ha eliminado correctamente.";
                         }
                 else if((String)session.getAttribute("MSG")=="NoEl") 
-                        { nombre_variable="El cliente no se ha eliminado correctamente.";
+                        { nombre_variable="El empleado no se ha eliminado correctamente.";
                         }
                 else if((String)session.getAttribute("MSG")=="Existe") 
-                        { nombre_variable="El cliente ya existe.";
+                        { nombre_variable="El empleado ya existe.";
                         }
            }
             if (session.getAttribute("esta")==null)
@@ -38,32 +39,27 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="Estilo/css/sb-admin.css" rel="stylesheet">
 <jsp:include page="master.jsp"></jsp:include>
-<%@page import="Servlets.Ventas.Clientes_S"%>
+<%@page import="Servlets.Organizacion.EmpleadosS"%>
 
     <div id="page-wrapper">
     <div class="container-fluid">
         
-      <form action="Clientes_S" method="POST">
+      <form action="EmpleadosS" method="POST">
           <table class="table">
                
                 <tr>
                     <th>Nombre</th>
-                    <td><input class="form-control" type="text" id="Nombre" name="Nombre"></td>
+                    <td><input class="form-control" type="text" id="Nombres" name="Nombres"></td>
                 </tr>
                 
                 <tr>
                     <th>Apellido</th>
-                    <td><input class="form-control" type="text" id="Apellido" name="Apellido"></td>
+                    <td><input class="form-control" type="text" id="Apellidos" name="Apellidos"></td>
                 </tr>
                 
                 <tr>
-                <th>NIT</th>
-                <td><input class="form-control" type="text" id="NIT" name="NIT"></td>
-                </tr>
-                
-                <tr>
-                    <th>Genero</th>
-                    <td><input class="form-control" type="text" id="Genero" name="Genero"></td>
+                <th>Direccion</th>
+                <td><input class="form-control" type="text" id="Direccion" name="Direccion"></td>
                 </tr>
                 
                 <tr>
@@ -72,8 +68,25 @@
                 </tr>
                 
                 <tr>
-                <th>Correo Electronico</th>
-                <td><input class="form-control" type="text" id="CorreoE" name="CorreoE"></td>
+                <th>DPI</th>
+                <td><input class="form-control" type="text" id="DPI" name="DPI"></td>
+                </tr>
+                
+                <tr>
+                    <th>Genero</th>
+                    <td><input class="form-control" type="text" id="Genero" name="Genero"></td>
+                </tr>
+                
+                <tr>
+                <th>Fecha de Nacimiento</th>
+                <div class="col-xs-10">
+                    <td><input class="form-control" type="date" id="Fecha_nacimiento" name="Fecha_nacimiento"></td>
+                </tr>
+                
+                <tr>
+                <th>Fecha Inicio de Labores</th>
+                <div class="col-xs-10">
+                    <td><input class="form-control" type="date" id="Fecha_inicio_labores" name="Fecha_inicio_labores"></td>
                 </tr>
                 
                 <tr>

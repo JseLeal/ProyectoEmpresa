@@ -76,7 +76,7 @@ public class Producto_C {
         catch(Exception ex)
             {
                   C.cerrarConexion();
-                  JOptionPane.showMessageDialog(null,ex.getMessage(),"Error en Query",JOptionPane.ERROR_MESSAGE);
+          
             }
            
       return lista;

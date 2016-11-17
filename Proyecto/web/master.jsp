@@ -61,7 +61,7 @@
                                <a href="Proveedores.jsp"><i class="glyphicon glyphicon-globe"></i> Proveedores</a>
                             </li>
                             <li>
-                                <a href="#"><i class="glyphicon glyphicon-save-file"></i>Facturas de Compra</a>
+                                <a href="FacturaCompra.jsp"><i class="glyphicon glyphicon-save-file"></i>Facturas de Compra</a>
                             </li>
                         </ul>
                     </li>       
@@ -72,7 +72,7 @@
                                  <a href="Clientes.jsp"><i class="glyphicon glyphicon-heart-empty"></i>Clientes</a>
                             </li>
                             <li>
-                                <a href="#"><i class="glyphicon glyphicon-open-file"></i>Facturas de Ventas</a>
+                                <a href="MaestroDetalleV.jsp"><i class="glyphicon glyphicon-open-file"></i>Facturas de Ventas</a>
                             </li>
                         </ul>
                     </li>
@@ -86,7 +86,7 @@
                                 <a href="Usuarios.jsp"><i class="glyphicon glyphicon-user"></i>Usuarios</a>
                             </li>
                             <li>
-                               <a href="#"><i class="glyphicon glyphicon-modal-window"></i>Empleados</a>
+                               <a href="empleados.jsp"><i class="glyphicon glyphicon-modal-window"></i>Empleados</a>
                             </li>
                               <li>
                                   <a href="Marcas.jsp"><i class="glyphicon glyphicon-tags"></i>Marcas</a>

@@ -76,7 +76,7 @@ public class MaestroDetalleV_C {
     public double getPrecio_unitario() {
         return precio_unitario;
     }
-
+    
     public void setIdVenta(int idVenta) {
         this.idVenta = idVenta;
     }
@@ -255,5 +255,56 @@ public class MaestroDetalleV_C {
             
        return lista;
     }
+  
+  public ArrayList <String> mostrarProductos(){
+  ArrayList<String> lista= new ArrayList<>();
+  Conexion C=new Conexion();
+        try{
+            C.abrirConexion();
+            String query;
+            query = "SELECT idProducto,producto FROM productos" ;
+            ResultSet consulta =  C.conexionBd.createStatement().executeQuery(query);
+                   while (consulta.next())
+                     {            
+                       lista.add(consulta.getInt("idProducto")+")"+consulta.getString("producto"));
+                     }
+               C.cerrarConexion();
+               return lista;
+            } 
+         catch(Exception ex)
+             {
+                   C.cerrarConexion();
+             }
+            
+       return lista;
+    }
+  
+  public void modificarExistencia() throws SQLException{
+      Conexion C=new Conexion();
+      C.abrirConexion();
+      String queryE;
+      String query;
+      int existencia=0;
+      
+    queryE=" SELECT existencia FROM productos WHERE idProducto like '" + getIdProducto() + "'  and Activo like '1'";
+ 
+    parametro=(PreparedStatement) C.conexionBd.prepareStatement(queryE);
+    
+    ResultSet exis=parametro.executeQuery();
+    
+    while(exis.next()){
+    existencia=exis.getInt("existencia");
+    }
+    
+       
+    
+     query = "update productos set existencia = ? where idProducto='"+getIdProducto()+"'";
+      
+      parametro=(PreparedStatement) C.conexionBd.prepareStatement(query); 
+      
+      parametro.setInt(1, (existencia-(Integer.parseInt(getCantidad()))));      
+      parametro.executeUpdate();
+      C.cerrarConexion();
+  }
       
 }

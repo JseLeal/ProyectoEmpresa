@@ -60,9 +60,18 @@ public class FacturaCompra_S extends HttpServlet {
             maestroventas.setPrecio_unitario(Integer.parseInt(precio_unitario));
             
             maestroventas.Insertar();
+            maestroventas.modificarExistencia();
+            request.getSession().setAttribute("MSG","Si");
+            request.getSession().setAttribute("esta","true");
+            response.sendRedirect("MaestroDetalleV.jsp"); 
+            
             }
             catch(Exception e){
                 String ex=e.getMessage()+e.toString();
+                request.getSession().setAttribute("MSG","No");
+                request.getSession().setAttribute("esta","true");
+                response.sendRedirect("MaestroDetalleV.jsp");
+                
                 }
             }
             
@@ -71,14 +80,17 @@ public class FacturaCompra_S extends HttpServlet {
                     request.getParameter("Eliminar")!=null){
                 
           try {
-                maestroventas.Eliminar();
+               
+                request.getSession().setAttribute("MSG","El");
+                request.getSession().setAttribute("esta","true");
+                response.sendRedirect("MaestroDetalleV.jsp"); 
 
                } 
                 catch (Exception e) {
                 }
           }
             
-        }
+        }catch(Exception e){ response.sendRedirect("MaestroDetalleV.jsp"); }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
