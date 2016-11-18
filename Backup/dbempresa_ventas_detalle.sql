@@ -16,27 +16,25 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `puestos`
+-- Table structure for table `ventas_detalle`
 --
 
-DROP TABLE IF EXISTS `puestos`;
+DROP TABLE IF EXISTS `ventas_detalle`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `puestos` (
-  `idPuesto` smallint(6) NOT NULL AUTO_INCREMENT,
-  `puesto` varchar(50) NOT NULL,
-  PRIMARY KEY (`idPuesto`)
+CREATE TABLE `ventas_detalle` (
+  `idventa_detalle` bigint(20) NOT NULL AUTO_INCREMENT,
+  `idVenta` int(11) NOT NULL,
+  `idProducto` int(11) NOT NULL,
+  `cantidad` varchar(45) NOT NULL,
+  `precio_unitario` decimal(8,2) NOT NULL,
+  PRIMARY KEY (`idventa_detalle`),
+  KEY `idProducto_idx` (`idProducto`),
+  KEY `idVenta_idx` (`idVenta`),
+  CONSTRAINT `idProducto2` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idVenta` FOREIGN KEY (`idVenta`) REFERENCES `ventas` (`idVenta`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `puestos`
---
-
-LOCK TABLES `puestos` WRITE;
-/*!40000 ALTER TABLE `puestos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `puestos` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -47,4 +45,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-24 22:09:37
+-- Dump completed on 2016-11-17 20:35:40

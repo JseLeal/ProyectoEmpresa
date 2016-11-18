@@ -16,24 +16,26 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `compras_detalle`
+-- Table structure for table `ventas`
 --
 
-DROP TABLE IF EXISTS `compras_detalle`;
+DROP TABLE IF EXISTS `ventas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `compras_detalle` (
-  `idcompra_detalle` bigint(20) NOT NULL AUTO_INCREMENT,
-  `idcompra` int(11) NOT NULL,
-  `idProducto` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `precio_costo_unitario` decimal(8,2) NOT NULL,
-  PRIMARY KEY (`idcompra_detalle`),
-  KEY `idProductos_idx` (`idProducto`),
-  KEY `idCompra_idx` (`idcompra`),
-  CONSTRAINT `idCompra` FOREIGN KEY (`idcompra`) REFERENCES `compras` (`idcompra`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idProductos` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+CREATE TABLE `ventas` (
+  `idVenta` int(11) NOT NULL AUTO_INCREMENT,
+  `nofactura` int(11) NOT NULL,
+  `serie` char(1) NOT NULL,
+  `fechafactura` date NOT NULL,
+  `idCliente` int(11) NOT NULL,
+  `idEmpleado` int(11) NOT NULL,
+  `fecha_ingreso` datetime NOT NULL,
+  PRIMARY KEY (`idVenta`),
+  KEY `idEmpleado_idx` (`idEmpleado`),
+  KEY `idClientes_idx` (`idCliente`),
+  CONSTRAINT `idClientes` FOREIGN KEY (`idCliente`) REFERENCES `clientes` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idEmpleado` FOREIGN KEY (`idEmpleado`) REFERENCES `empleados` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

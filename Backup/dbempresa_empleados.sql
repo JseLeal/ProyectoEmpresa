@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `dbempresa` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `dbempresa`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dbempresa
@@ -32,13 +30,13 @@ CREATE TABLE `empleados` (
   `telefono` varchar(25) NOT NULL,
   `DPI` varchar(15) NOT NULL,
   `genero` bit(1) NOT NULL,
-  `fecha_nacimiento` date NOT NULL,
-  `idPuesto` smallint(6) NOT NULL,
-  `fecha_inicio_labores` date NOT NULL,
-  `fechaingreso` datetime NOT NULL,
+  `fecha_nacimiento` varchar(45) NOT NULL,
+  `idPuesto` int(11) NOT NULL,
+  `fecha_inicio_labores` varchar(45) NOT NULL,
+  `fechaingreso` varchar(45) NOT NULL,
+  `Activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`idEmpleado`),
-  KEY `idPuesto_idx` (`idPuesto`),
-  CONSTRAINT `idPuesto` FOREIGN KEY (`idPuesto`) REFERENCES `puestos` (`idPuesto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `idPuesto_idx` (`idPuesto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +49,4 @@ CREATE TABLE `empleados` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-23 23:26:02
+-- Dump completed on 2016-11-17 20:35:41

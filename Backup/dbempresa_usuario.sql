@@ -16,27 +16,20 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `marcas`
+-- Table structure for table `usuario`
 --
 
-DROP TABLE IF EXISTS `marcas`;
+DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `marcas` (
-  `idmarca` smallint(6) NOT NULL AUTO_INCREMENT,
-  `marca` varchar(50) NOT NULL,
-  PRIMARY KEY (`idmarca`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `usuario` (
+  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(45) NOT NULL,
+  `Correo` varchar(45) NOT NULL,
+  `Contrasena` varchar(60) NOT NULL,
+  PRIMARY KEY (`idUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `marcas`
---
-
-LOCK TABLES `marcas` WRITE;
-/*!40000 ALTER TABLE `marcas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `marcas` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -47,4 +40,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-24 22:09:37
+-- Dump completed on 2016-11-17 20:35:40

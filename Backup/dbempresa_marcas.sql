@@ -16,36 +16,19 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `ventas`
+-- Table structure for table `marcas`
 --
 
-DROP TABLE IF EXISTS `ventas`;
+DROP TABLE IF EXISTS `marcas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ventas` (
-  `idVenta` int(11) NOT NULL AUTO_INCREMENT,
-  `nofactura` int(11) NOT NULL,
-  `serie` char(1) NOT NULL,
-  `fechafactura` date NOT NULL,
-  `idCliente` int(11) NOT NULL,
-  `idEmpleado` int(11) NOT NULL,
-  `fecha_ingreso` datetime NOT NULL,
-  PRIMARY KEY (`idVenta`),
-  KEY `idEmpleado_idx` (`idEmpleado`),
-  KEY `idCliente_idx` (`idCliente`),
-  CONSTRAINT `idCliente` FOREIGN KEY (`idCliente`) REFERENCES `clientes` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idEmpleado` FOREIGN KEY (`idEmpleado`) REFERENCES `empleados` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `marcas` (
+  `idmarca` smallint(6) NOT NULL AUTO_INCREMENT,
+  `marca` varchar(50) NOT NULL,
+  `Activo` tinyint(1) NOT NULL,
+  PRIMARY KEY (`idmarca`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ventas`
---
-
-LOCK TABLES `ventas` WRITE;
-/*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -56,4 +39,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-24 22:09:37
+-- Dump completed on 2016-11-17 20:35:40

@@ -16,34 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `ventas_detalle`
+-- Table structure for table `productos`
 --
 
-DROP TABLE IF EXISTS `ventas_detalle`;
+DROP TABLE IF EXISTS `productos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ventas_detalle` (
-  `idventa_detalle` bigint(20) NOT NULL AUTO_INCREMENT,
-  `idVenta` int(11) NOT NULL,
-  `idProducto` int(11) NOT NULL,
-  `cantidad` varchar(45) NOT NULL,
-  `precio_unitario` decimal(8,2) NOT NULL,
-  PRIMARY KEY (`idventa_detalle`),
-  KEY `idProducto_idx` (`idProducto`),
-  KEY `idVenta_idx` (`idVenta`),
-  CONSTRAINT `idProducto2` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idVenta` FOREIGN KEY (`idVenta`) REFERENCES `ventas` (`idVenta`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `productos` (
+  `idProducto` int(11) NOT NULL AUTO_INCREMENT,
+  `producto` varchar(50) NOT NULL,
+  `idmarca` smallint(6) NOT NULL,
+  `Descripcion` varchar(100) NOT NULL,
+  `Imagen` varchar(30) NOT NULL,
+  `precio_costo` decimal(8,2) NOT NULL,
+  `precio_venta` decimal(8,2) NOT NULL,
+  `existencia` int(11) NOT NULL,
+  `fecha_ingreso` varchar(45) NOT NULL,
+  `Activo` tinyint(1) NOT NULL,
+  PRIMARY KEY (`idProducto`),
+  KEY `idMarca_idx` (`idmarca`),
+  CONSTRAINT `idmarca` FOREIGN KEY (`idmarca`) REFERENCES `marcas` (`idmarca`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ventas_detalle`
---
-
-LOCK TABLES `ventas_detalle` WRITE;
-/*!40000 ALTER TABLE `ventas_detalle` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ventas_detalle` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -54,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-24 22:09:37
+-- Dump completed on 2016-11-17 20:35:41
