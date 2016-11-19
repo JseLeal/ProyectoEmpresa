@@ -4,6 +4,8 @@
     Author     : Jose
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Clases.Organizacion.empleados"%>
 <%
  String nombre_variable="";
             String estado="false";
@@ -72,15 +74,33 @@
                 <td><input class="form-control" type="text" id="DPI" name="DPI"></td>
                 </tr>
                 
-                <tr>
+               <tr>
                     <th>Genero</th>
-                    <td><input class="form-control" type="text" id="Genero" name="Genero"></td>
+                    <td>
+                    <select class="form-control" id="Genero" name="Genero">
+                        <option>Seleccionar</option>
+                        <option>Femenino</option>
+                        <option>Masculino</option>
+                    </select>
+                    </td>
                 </tr>
                 
                 <tr>
                 <th>Fecha de Nacimiento</th>
                 <div class="col-xs-10">
                     <td><input class="form-control" type="date" id="Fecha_nacimiento" name="Fecha_nacimiento"></td>
+                </tr>
+                
+                <tr> 
+                    <th>Puestos</th>
+                <td><select class="form-control" type="text" name="idPuesto">
+                <%  empleados e=new empleados();
+                                ArrayList <String> L= e.mostrarPuestos();
+                                for (String dat:L)
+                                  { %>
+                                <option value="<%=dat%>"><%=dat%></option>
+                               <% } %>        
+                <select></td>
                 </tr>
                 
                 <tr>

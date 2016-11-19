@@ -47,15 +47,24 @@ public class EmpleadosS extends HttpServlet {
             out.println("</html>");
             
             
-            String Nombre = request.getParameter("Nombre");
-            String  Apellido = request.getParameter("Apellido");
+            String Nombre = request.getParameter("Nombres");
+            String  Apellido = request.getParameter("Apellidos");
             String  Direccion= request.getParameter("Direccion");
             String  Telefono= request.getParameter("Telefono");
             String  DPI= request.getParameter("DPI");
             String  Genero= request.getParameter("Genero");
+             if ("Femenino".equals(Genero)){
+                Genero="1";
+            }
+            else if("Masculino".equals(Genero)){
+            Genero="0";
+            }
             String  Fecha_nacimiento= request.getParameter("Fecha_nacimiento");
+            String  idPuesto= request.getParameter("idPuesto");
             String  Fecha_inicio_labores= request.getParameter("Fecha_inicio_labores");
             String  FechaIngreso= request.getParameter("FechaIngreso");
+            int DatoP=0;
+            DatoP=idPuesto.indexOf(")");
             
             empleados varempleados=new empleados(); 
             
@@ -70,6 +79,7 @@ public class EmpleadosS extends HttpServlet {
             varempleados.setDPI(DPI);
             varempleados.setGenero(Integer.parseInt(Genero));
             varempleados.setFecha_nacimiento(Fecha_nacimiento);
+            varempleados.setIdPuesto((Integer.parseInt(idPuesto.substring(0, DatoP))));
             varempleados.setFecha_inicio_labores(Fecha_inicio_labores);
             varempleados.setFechaingreso(FechaIngreso);
             varempleados.Insertar();

@@ -29,6 +29,9 @@
                 else if((String)session.getAttribute("MSG")=="Existe") 
                         { nombre_variable="El cliente ya existe.";
                         }
+                else if((String)session.getAttribute("MSG")=="Error") 
+                        { nombre_variable="Los campos no han sido ingresado correctamente";
+                        }
            }
             if (session.getAttribute("esta")==null)
             {
@@ -63,7 +66,13 @@
                 
                 <tr>
                     <th>Genero</th>
-                    <td><input class="form-control" type="text" id="Genero" name="Genero"></td>
+                    <td>
+                    <select class="form-control" id="Genero" name="Genero">
+                        <option>Seleccionar</option>
+                        <option>Femenino</option>
+                        <option>Masculino</option>
+                    </select>
+                    </td>
                 </tr>
                 
                 <tr>

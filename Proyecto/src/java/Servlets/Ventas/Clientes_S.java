@@ -42,6 +42,13 @@ public class Clientes_S extends HttpServlet {
             String Apellido=request.getParameter("Apellido");
             String NIT=request.getParameter("NIT");
             String Genero=request.getParameter("Genero");
+            if ("Femenino".equals(Genero)){
+                Genero="1";
+            }
+            else if("Masculino".equals(Genero)){
+            Genero="0";
+            }
+            
             String Telefono=request.getParameter("Telefono");
             String CorreoE=request.getParameter("CorreoE");
             String FechaIngreso=request.getParameter("FechaIngreso");
@@ -54,7 +61,7 @@ public class Clientes_S extends HttpServlet {
                request.getParameter("Eliminar")==null){
                 
                 try{ 
-            varclientes.setNombre(Nombre);
+            varclientes.setNombres(Nombre);
             varclientes.setApellidos(Apellido);
             varclientes.setNIT(Integer.parseInt(NIT));
             varclientes.setGenero(Integer.parseInt(Genero));
@@ -80,7 +87,7 @@ public class Clientes_S extends HttpServlet {
                     request.getParameter("Eliminar")==null){
             try {    
             
-            varclientes.setNombre(Nombre);
+            varclientes.setNombres(Nombre);
             varclientes.setApellidos(Apellido);
             varclientes.setIdCliente(varclientes.ConsultaC());
             varclientes.setNIT(Integer.parseInt(NIT));
@@ -104,7 +111,7 @@ public class Clientes_S extends HttpServlet {
             else if(request.getParameter("Insertar")==null && request.getParameter("Modificar")==null && 
                     request.getParameter("Eliminar")!=null){
                 try {
-                    varclientes.setNombre(Nombre);
+                    varclientes.setNombres(Nombre);
                     varclientes.setApellidos(Apellido);
                     varclientes.setIdCliente(varclientes.ConsultaC());
                     varclientes.Eliminar();
@@ -119,6 +126,11 @@ public class Clientes_S extends HttpServlet {
                 }
             }
 
+        }
+        catch(Exception e){
+            request.getSession().setAttribute("MSG","Error");
+            request.getSession().setAttribute("esta","true");
+            response.sendRedirect("Clientes.jsp");
         }
     }
 

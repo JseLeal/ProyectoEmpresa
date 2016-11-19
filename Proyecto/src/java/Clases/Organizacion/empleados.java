@@ -89,7 +89,7 @@ public class empleados {
         this.telefono = telefono;
     }
 
-    public void setDPI(String dpi) {
+    public void setDPI(String DPI) {
         this.DPI = DPI;
     }
 
@@ -121,8 +121,8 @@ public class empleados {
     C.abrirConexion(); 
     String query=" ";
     
-    query="INSERT INTO empleados (nombres, apellidos, direccion, telefono, DPI, genero, fecha_nacimiento, idPuesto, fecha_inicio_labores, fechaingreso)" 
-            + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+    query="INSERT INTO empleados (nombres, apellidos, direccion, telefono, DPI, genero, fecha_nacimiento, idPuesto, fecha_inicio_labores, fechaingreso, Activo)" 
+            + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
     campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
 
@@ -133,9 +133,10 @@ public class empleados {
     campo.setString(5, getDPI());
     campo.setInt(6, getGenero());
     campo.setString (7, getFecha_nacimiento());
-    campo.setInt (8, 1);
+    campo.setInt (8, getIdPuesto());
     campo.setString (9, getFecha_inicio_labores());
     campo.setString (10, getFechaingreso());
+    campo.setInt(11,1);
     campo.executeUpdate();
     C.cerrarConexion();    
     }
@@ -218,6 +219,29 @@ public class empleados {
    C.cerrarConexion();
    return id;
   }
+    
+    public ArrayList <String> mostrarPuestos(){
+  ArrayList<String> lista= new ArrayList<>();
+  Conexion C=new Conexion();
+        try{
+            C.abrirConexion();
+            String query;
+            query ="SELECT idPuesto,puesto FROM puestos WHERE Activo like '1'" ;
+            ResultSet consulta =  C.conexionBd.createStatement().executeQuery(query);
+                   while (consulta.next())
+                     {            
+                       lista.add(consulta.getInt("idPuesto")+")"+consulta.getString("puesto"));
+                     }
+               C.cerrarConexion();
+               return lista;
+            } 
+         catch(Exception ex)
+             {
+                   C.cerrarConexion();
+             }
+            
+       return lista;
+    }
 
   
 }

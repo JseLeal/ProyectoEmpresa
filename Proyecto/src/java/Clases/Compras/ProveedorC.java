@@ -21,6 +21,7 @@ public class ProveedorC {
     public int NIT;
     public String direccion;
     public int telefono;
+    public int Activo;
     PreparedStatement campo;
 
     public int getIdProveedor() {
@@ -43,6 +44,10 @@ public class ProveedorC {
         return telefono;
     }
 
+    public int getActivo() {
+        return Activo;
+    }
+
     public void setIdProveedor(int idProveedor) {
         this.idProveedor = idProveedor;
     }
@@ -62,6 +67,10 @@ public class ProveedorC {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
+
+    public void setActivo(int Activo) {
+        this.Activo = Activo;
+    }
     
     public void Insertar() throws SQLException
     {
@@ -70,7 +79,7 @@ public class ProveedorC {
     C.abrirConexion(); 
     String query="";
     
-    query="INSERT INTO proveedores (proveedor, NIT, direccion, telefono)" + "VALUES (?,?,?,?)";
+    query="INSERT INTO proveedores (proveedor, NIT, direccion, telefono, Activo)" + "VALUES (?,?,?,?,?)";
 
     campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
     
@@ -78,7 +87,7 @@ public class ProveedorC {
     campo.setInt(2, getNIT());
     campo.setString(3, getDireccion());
     campo.setInt(4, getTelefono());
-    
+    campo.setInt(5,1);
     campo.executeUpdate();
     C.cerrarConexion();
     }
@@ -133,8 +142,8 @@ public class ProveedorC {
     }
     
      public int ConsultaP() throws SQLException{
-    int id=0;
-    Conexion C=new Conexion();
+     int id=0;
+     Conexion C=new Conexion();
     try{ 
     C.abrirConexion(); 
     String query;
@@ -143,15 +152,15 @@ public class ProveedorC {
     
     campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
     
-    ResultSet guardar=campo.executeQuery();
+    ResultSet recibir=campo.executeQuery();
     
-    while(guardar.next()){
-    id=guardar.getInt("idProveedor");
+    while(recibir.next()){
+    id=recibir.getInt("idProveedor");
     }
     return id;           
   }
-  catch(Exception ex)
-  { }
+  catch(Exception ex){
+  }
    C.cerrarConexion();
    return id;
   }
