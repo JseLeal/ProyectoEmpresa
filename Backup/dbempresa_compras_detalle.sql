@@ -33,7 +33,7 @@ CREATE TABLE `compras_detalle` (
   KEY `idCompra_idx` (`idcompra`),
   CONSTRAINT `idCompra` FOREIGN KEY (`idcompra`) REFERENCES `compras` (`idcompra`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idProductos` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -45,4 +45,4 @@ CREATE TABLE `compras_detalle` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-17 20:35:41
+-- Dump completed on 2016-11-19 15:18:39
