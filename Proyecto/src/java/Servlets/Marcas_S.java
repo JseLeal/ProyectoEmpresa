@@ -35,7 +35,7 @@ public class Marcas_S extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+            try{
             String Marca=request.getParameter("marca");
             if(!"".equals(Marca))
                     {
@@ -63,8 +63,8 @@ public class Marcas_S extends HttpServlet {
             }
             else if(request.getParameter("Eliminar")!=null){
                 try{
-                marc.Eliminar();
-             request.getSession().setAttribute("MSG","El");
+                    marc.Eliminar();
+                    request.getSession().setAttribute("MSG","El");
                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("Marcas.jsp");  
                 }catch(Exception e){request.getSession().setAttribute("MSG","NoEl");
@@ -72,7 +72,20 @@ public class Marcas_S extends HttpServlet {
                     response.sendRedirect("Marcas.jsp"); }
             }
             }
+            else{
+                request.getSession().setAttribute("MSG","Error");
+                request.getSession().setAttribute("esta","true");
+                response.sendRedirect("Marcas.jsp");  
+            }
+        }catch(Exception e){
+            request.getSession().setAttribute("MSG","Error");
+            request.getSession().setAttribute("esta","true");
+            response.sendRedirect("Marcas.jsp");  
         }
+      }catch(Exception e){
+            request.getSession().setAttribute("MSG","Error");
+            request.getSession().setAttribute("esta","true");
+            response.sendRedirect("Marcas.jsp");} 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

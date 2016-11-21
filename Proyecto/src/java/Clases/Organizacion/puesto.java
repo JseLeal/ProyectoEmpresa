@@ -3,9 +3,11 @@ package Clases.Organizacion;
 
 import Clases.Conexion;
 import java.awt.HeadlessException;
+import static java.lang.System.out;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class puesto {
     
@@ -114,4 +116,5 @@ public class puesto {
             }
            
         }
+            
 }

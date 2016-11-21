@@ -36,6 +36,7 @@ public class EmpleadosS extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            try{
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -125,6 +126,7 @@ public class EmpleadosS extends HttpServlet {
             else if(request.getParameter("Insertar")==null && request.getParameter("Modificar")==null && 
                     request.getParameter("Eliminar")!=null){
                try {
+                if(!"".equals(Nombre)&& !"".equals(Apellido)){
                 varempleados.setNombres(Nombre);
                 varempleados.setApellidos(Apellido);
                 varempleados.setIdEmpleado(varempleados.ConsultaEmp());
@@ -132,14 +134,25 @@ public class EmpleadosS extends HttpServlet {
                 request.getSession().setAttribute("MSG","El");
                 request.getSession().setAttribute("esta","true");
                 response.sendRedirect("empleados.jsp");
-               } 
+                   }
+                else{
+                    request.getSession().setAttribute("MSG","Error");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("empleados.jsp");
+                    }
+               }
                 catch (SQLException e) {
                   request.getSession().setAttribute("MSG","NoEl");
                   request.getSession().setAttribute("esta","true");
                   response.sendRedirect("empleados.jsp");
                 }
           }
-        }
+        }catch (Exception e) {
+                  request.getSession().setAttribute("MSG","Error");
+                  request.getSession().setAttribute("esta","true");
+                  response.sendRedirect("empleados.jsp");
+                }      
+      }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

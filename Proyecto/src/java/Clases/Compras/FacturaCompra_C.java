@@ -25,7 +25,7 @@ public class FacturaCompra_C {
     //Campos VentaDetalle
     private int idCompra_detalle;
     private int idProducto;
-    private String cantidad;
+    private int cantidad;
     private double precio_unitario;
 
     PreparedStatement campo,parametro,campo2;
@@ -60,7 +60,7 @@ public class FacturaCompra_C {
     
     campo2.setInt(1,cons);
     campo2.setInt(2, getIdProducto());
-    campo2.setString(3, getCantidad());
+    campo2.setInt(3, getCantidad());
     campo2.setDouble(4, getPrecio_unitario());
     campo2.executeUpdate();
     C.cerrarConexion();
@@ -72,24 +72,29 @@ public class FacturaCompra_C {
 
 }
      
-  public int Eliminar () throws SQLException {
-        
+  public void Eliminar () throws SQLException {       
     Conexion C=new Conexion();
     C.abrirConexion(); 
-    String query;
-    int idE=0;
+    String queryC,queryE;
+    int id=0;
     
-    query=" SELECT  idCompra FROM ventas where nofactura like  '" + getNofactura()+ "'";
+    queryC=" SELECT  idcompra FROM compras where no_orden_compra like  '" + getNofactura()+ "'";
     
-    campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
+    campo=(PreparedStatement) C.conexionBd.prepareStatement(queryC);
     
     ResultSet guardar=campo.executeQuery();
     
     while(guardar.next()){
-    idE=guardar.getInt("idVenta");
+    id=guardar.getInt("idcompra");
     }
-    return idE;
     
+    queryE="delete from compras where idcompra like '" + id + "'";
+    
+    campo=(PreparedStatement) C.conexionBd.prepareStatement(queryE); 
+          
+      campo.executeUpdate();
+      C.cerrarConexion();
+ 
   }
   
   public int Consultar() throws SQLException{
@@ -140,6 +145,29 @@ public class FacturaCompra_C {
        return lista;
     }
   
+  public ArrayList <String> mostrarProductos(){
+  ArrayList<String> lista= new ArrayList<>();
+  Conexion C=new Conexion();
+        try{
+            C.abrirConexion();
+            String query;
+            query = "SELECT idProducto,producto FROM productos" ;
+            ResultSet consulta =  C.conexionBd.createStatement().executeQuery(query);
+                   while (consulta.next())
+                     {            
+                       lista.add(consulta.getInt("idProducto")+")"+consulta.getString("producto"));
+                     }
+               C.cerrarConexion();
+               return lista;
+            } 
+         catch(Exception ex)
+             {
+                   C.cerrarConexion();
+             }
+            
+       return lista;
+    }
+  
  public void modificarExistencia() throws SQLException{
       Conexion C=new Conexion();
       C.abrirConexion();
@@ -157,13 +185,12 @@ public class FacturaCompra_C {
     existencia=exis.getInt("existencia");
     }
     
-  
-    
+   
      query = "update productos set existencia = ? where idProducto='"+getIdProducto()+"'";
       
       parametro=(PreparedStatement) C.conexionBd.prepareStatement(query); 
       
-      parametro.setInt(1, (existencia+(Integer.parseInt(getCantidad()))));      
+      parametro.setInt(1, (existencia+((getCantidad()))));      
       parametro.executeUpdate();
       C.cerrarConexion();
   }
@@ -225,11 +252,11 @@ public class FacturaCompra_C {
         this.idProducto = idProducto;
     }
 
-    public String getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 

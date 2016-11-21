@@ -38,7 +38,7 @@ public class Usuarios_S extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           
+           try{
             String nombre=(String) request.getParameter("Usuario");
             String Correo=(String) request.getParameter("Correo");
             String Contrasena=(String) request.getParameter("Contrasena");
@@ -47,19 +47,25 @@ public class Usuarios_S extends HttpServlet {
             
             if(request.getParameter("Ingresar")!=null){
             try{
+                if(!"".equals(nombre)&& !"".equals(Contrasena)&& !"".equals(Correo)){
                 if(nombre!=null && Contrasena!=null && Correo!=null)
                 {
                 US.setNombre(nombre);
                 US.setCorreo(Correo);
                 US.setContrasena(US.sha1(Contrasena));
                 US.ingresar();
-                   request.getSession().setAttribute("MSG","Si");
+                    request.getSession().setAttribute("MSG","Si");
                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("Usuarios.jsp");  
                 }
                 else{request.getSession().setAttribute("MSG","No");
                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("Usuarios.jsp");  }
+                }else{
+                    request.getSession().setAttribute("MSG","Error");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("Usuarios.jsp");
+                }
             }
             catch(NoSuchAlgorithmException | IOException ex){request.getSession().setAttribute("MSG","No");
                     request.getSession().setAttribute("esta","true");
@@ -67,28 +73,48 @@ public class Usuarios_S extends HttpServlet {
             }
             else if(request.getParameter("Modificar")!=null){
                 try{
+                 if(!"".equals(nombre)&& !"".equals(Contrasena)&& !"".equals(Correo)){
                 US.setCorreo(Correo);
                 US.Modificar();
                 request.getSession().setAttribute("MSG","Mod");
                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("Usuarios.jsp");  
+                 }else{
+                    request.getSession().setAttribute("MSG","Error");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("Usuarios.jsp");
+                 }
                 }catch(Exception ex){request.getSession().setAttribute("MSG","NoMod");
                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("Usuarios.jsp");  }
             }
             else if(request.getParameter("Eliminar")!=null){
                 try{
+                 if(!"".equals(nombre)&& !"".equals(Contrasena)&& !"".equals(Correo)){
                 US.setNombre(nombre);
                 US.Eliminar();
                 request.getSession().setAttribute("MSG","El");
                     request.getSession().setAttribute("esta","true");
-                    response.sendRedirect("Usuarios.jsp");  
+                    response.sendRedirect("Usuarios.jsp"); 
+                 }else{
+                    request.getSession().setAttribute("MSG","Error");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("Usuarios.jsp");
+                 }
                 }catch(SQLException | IOException e){request.getSession().setAttribute("MSG","NoEL");
                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("Usuarios.jsp");  }
-            }
-            
-        }
+            }  
+        }catch(Exception e){
+            request.getSession().setAttribute("MSG","Error");
+            request.getSession().setAttribute("esta","true");
+            response.sendRedirect("Usuarios.jsp");  
+        }  
+      }catch(Exception e){
+            request.getSession().setAttribute("MSG","Error");
+            request.getSession().setAttribute("esta","true");
+            response.sendRedirect("Usuarios.jsp");  
+        }  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

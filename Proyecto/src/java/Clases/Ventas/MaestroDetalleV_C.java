@@ -165,23 +165,29 @@ public class MaestroDetalleV_C {
 
 }
      
-  public int Eliminar () throws SQLException {
+  public void Eliminar () throws SQLException {
         
     Conexion C=new Conexion();
     C.abrirConexion(); 
-    String query;
-    int idE=0;
+    String queryC,queryE;
+    int id=0;
     
-    query=" SELECT  idVenta FROM ventas where nofactura like  '" + getNofactura()+ "'  and serie like'" + getSerie() + "' ";
+    queryC=" SELECT  idVenta FROM ventas where serie like  '" + getNofactura()+ "'";
     
-    campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
+    campo=(PreparedStatement) C.conexionBd.prepareStatement(queryC);
     
     ResultSet guardar=campo.executeQuery();
     
     while(guardar.next()){
-    idE=guardar.getInt(idVenta);
+    id=guardar.getInt("idVenta");
     }
-    return idE;
+    
+    queryE="delete from ventas where idVenta like '" + id + "'";
+    
+    campo=(PreparedStatement) C.conexionBd.prepareStatement(queryE); 
+          
+      campo.executeUpdate();
+      C.cerrarConexion();
     
   }
   

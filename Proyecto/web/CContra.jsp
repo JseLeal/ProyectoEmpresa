@@ -17,6 +17,9 @@
                else if((String)session.getAttribute("MSG")=="NoCoin") 
                         { nombre_variable="La contraseña Actual es incorrecta.";
                         }
+               else if((String)session.getAttribute("MSG")=="Error") 
+                        { nombre_variable="No se ha podido llevar a cabo la tarea.";
+                        }
            }
             if (session.getAttribute("esta")==null)
             {

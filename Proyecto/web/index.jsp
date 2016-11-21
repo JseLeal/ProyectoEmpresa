@@ -26,13 +26,17 @@
                 if((String)session.getAttribute("MSG")=="Error")
                 {
                 nombre_variable="Ha ocurrido un error. Intente más tarde";
-                } else if((String)session.getAttribute("MSG")=="No") 
+                }
+                else if((String)session.getAttribute("MSG")=="No") 
                         { nombre_variable="El usuario y/o contraseña son incorrectos.";
-                        }             
-if (session.getAttribute("esta")==null)
-            {
-               estado="false";
-            }else{estado="true";}
+                        }
+            if (session.getAttribute("esta")==null)
+                {
+             estado="false";
+                }  
+            else{
+                estado="true";
+                }
             }
 %>
         <div style=" margin: 0 auto; background-color: lightpink; width: 50%; border-radius: 20px;text-align: center; margin-top: 12%;">

@@ -34,6 +34,7 @@ public class Proveedores_S extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            try{
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -100,12 +101,19 @@ public class Proveedores_S extends HttpServlet {
             else if(request.getParameter("Insertar")==null && request.getParameter("Modificar")==null && 
                     request.getParameter("Eliminar")!=null){
                try {
+                   if(!"".equals(Proveedor)){
                 varproveedores.setProveedor(Proveedor);
                 varproveedores.setIdProveedor(varproveedores.ConsultaP());
                 varproveedores.Eliminar();
                 request.getSession().setAttribute("MSG","El");
                 request.getSession().setAttribute("esta","true");
                 response.sendRedirect("Proveedores.jsp");
+                }
+                   else{
+                   request.getSession().setAttribute("MSG","Error");
+                   request.getSession().setAttribute("esta","true");
+                   response.sendRedirect("Proveedores.jsp");
+                   }
                } 
                 catch (SQLException e) {
                   request.getSession().setAttribute("MSG","NoEl");
@@ -113,7 +121,13 @@ public class Proveedores_S extends HttpServlet {
                   response.sendRedirect("Proveedores.jsp");
                 }
           }
-        }
+        }catch (Exception e) {
+                request.getSession().setAttribute("MSG","Error");
+                request.getSession().setAttribute("esta","true");
+                response.sendRedirect("Proveedores.jsp");
+                }
+            
+      }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

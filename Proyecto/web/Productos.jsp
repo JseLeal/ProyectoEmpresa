@@ -115,7 +115,7 @@
             <input class="btn btn-warning" type="submit" name="Modificar" value="Modificar"/>
             <input class="btn btn-danger" type="submit" name="Eliminar" value="Eliminar"/>
             <br>
-            <a href="Marcas.jsp">IR A MARCAS</a>
+            <a href="Marcas.jsp" style="font-size:13px;">IR A MARCAS</a>
            
             <label visible="<%= estado %>"> <%= nombre_variable%> </label>
             

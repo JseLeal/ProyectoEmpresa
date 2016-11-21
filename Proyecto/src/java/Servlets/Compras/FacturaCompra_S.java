@@ -33,8 +33,9 @@ public class FacturaCompra_S extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-        int datoC=0;
-            int datoE=0;
+            try{
+            int datoC=0;
+            int datoP=0;
             String idVenta=request.getParameter("idVenta");
             String nofactura=request.getParameter("nofactura");
             String fechafactura=request.getParameter("fechafactura");
@@ -44,6 +45,7 @@ public class FacturaCompra_S extends HttpServlet {
             String cantidad=request.getParameter("cantidad");
             String precio_unitario=request.getParameter("precio_unitario");
             datoC=idProveedor.indexOf(")");
+            datoP=idProducto.indexOf(")");
             
             FacturaCompra_C maestroventas= new FacturaCompra_C();
             
@@ -55,42 +57,52 @@ public class FacturaCompra_S extends HttpServlet {
             maestroventas.setFechafactura(fechafactura);
             maestroventas.setIdProveedor((Integer.parseInt(idProveedor.substring(0, datoC))));
             maestroventas.setFecha_ingreso(fecha_ingreso);
-            maestroventas.setIdProducto(Integer.parseInt(idProducto));
-            maestroventas.setCantidad(cantidad);
+            maestroventas.setIdProducto((Integer.parseInt(idProducto.substring(0, datoP))));
+            maestroventas.setCantidad(Integer.parseInt(cantidad));
             maestroventas.setPrecio_unitario(Integer.parseInt(precio_unitario));
             
             maestroventas.Insertar();
             maestroventas.modificarExistencia();
             request.getSession().setAttribute("MSG","Si");
             request.getSession().setAttribute("esta","true");
-            response.sendRedirect("MaestroDetalleV.jsp"); 
-            
+            response.sendRedirect("FacturaCompra.jsp"); 
             }
             catch(Exception e){
                 String ex=e.getMessage()+e.toString();
                 request.getSession().setAttribute("MSG","No");
                 request.getSession().setAttribute("esta","true");
-                response.sendRedirect("MaestroDetalleV.jsp");
-                
+                response.sendRedirect("FacturaCompra.jsp");
                 }
             }
             
           //eliminar
             else if(request.getParameter("Insertar")==null && 
-                    request.getParameter("Eliminar")!=null){
-                
+                    request.getParameter("Eliminar")!=null){              
           try {
-               
+                maestroventas.setNofactura(Integer.parseInt(nofactura));
+                maestroventas.setFechafactura(fechafactura);
+                maestroventas.setIdProveedor((Integer.parseInt(idProveedor.substring(0, datoC))));
+                maestroventas.setFecha_ingreso(fecha_ingreso);
+                maestroventas.setIdProducto((Integer.parseInt(idProducto.substring(0, datoP))));
+                maestroventas.setCantidad(Integer.parseInt(cantidad));
+                maestroventas.setPrecio_unitario(Integer.parseInt(precio_unitario));
+                maestroventas.Eliminar();
                 request.getSession().setAttribute("MSG","El");
                 request.getSession().setAttribute("esta","true");
-                response.sendRedirect("MaestroDetalleV.jsp"); 
-
+                response.sendRedirect("FacturaCompra.jsp"); 
                } 
                 catch (Exception e) {
+                request.getSession().setAttribute("MSG","NoEl");
+                request.getSession().setAttribute("esta","true");
+                response.sendRedirect("FacturaCompra.jsp");
                 }
           }
             
-        }catch(Exception e){ response.sendRedirect("MaestroDetalleV.jsp"); }
+        }catch(Exception e){
+            request.getSession().setAttribute("MSG","Error");
+            request.getSession().setAttribute("esta","true");
+            response.sendRedirect("FacturaCompra.jsp"); }  
+      }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

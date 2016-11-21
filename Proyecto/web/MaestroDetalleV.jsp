@@ -27,6 +27,9 @@
                 else if((String)session.getAttribute("MSG")=="Existe") 
                         { nombre_variable="La factura venta ya existe.";
                         }
+                else if((String)session.getAttribute("MSG")=="Error") 
+                        { nombre_variable="No ha se ha podido llevar a cabo la tarea.";
+                        }
            }
             if (session.getAttribute("esta")==null)
             {

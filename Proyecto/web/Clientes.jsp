@@ -3,6 +3,8 @@
     Created on : Oct 24, 2016, 5:37:34 PM
     Author     : Usuario
 --%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="Clases.Conexion"%>
 <%
  String nombre_variable="";
             String estado="false";
@@ -30,7 +32,7 @@
                         { nombre_variable="El cliente ya existe.";
                         }
                 else if((String)session.getAttribute("MSG")=="Error") 
-                        { nombre_variable="Los campos no han sido ingresado correctamente";
+                        { nombre_variable="No ha se ha podido llevar a cabo la tarea.";
                         }
            }
             if (session.getAttribute("esta")==null)
@@ -97,6 +99,45 @@
                 <input class="btn btn-danger" type="submit" value="Eliminar" name="Eliminar" />
                 <label visible="<%= estado %>"> <%= nombre_variable%> </label>
         </form>
+        
+        <h3>Clientes Actuales</h3>
+                <%
+        Conexion C;
+        C = new Conexion();
+        C.abrirConexion();
+
+        String query="";
+        query = "SELECT nombres, apellidos,NIT,telefono,correo_electronico FROM clientes where Activo like '1' ";
+
+        ResultSet consulta = C.conexionBd.createStatement().executeQuery(query);
+
+        out.println("<table class='table table-hover'>");
+        while (consulta.next()) 
+            {
+                                    
+            String nombres = consulta.getString("nombres");
+            String apellidos = consulta.getString("apellidos");
+            String NIT = consulta.getString("NIT");
+            String telefono = consulta.getString("telefono");
+            String correo_electronico = consulta.getString("correo_electronico");
+       
+            out.println("<tr>");
+                            
+            out.println("<td>" + nombres + "</td>");
+            out.println("<td>" + apellidos + "</td>");
+            out.println("<td>" + NIT + "</td>");
+            out.println("<td>" + telefono + "</td>");
+            out.println("<td>" + correo_electronico + "</td>");
+                           
+            out.println("</tr>");
+           
+            }
+         out.println("</table>");
+        C.cerrarConexion();
+                %>
+        
+        
+        
     </div>
  </div>
 <%    request.getSession().setAttribute("MSG",null);
