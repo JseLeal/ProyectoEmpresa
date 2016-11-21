@@ -142,12 +142,12 @@ public class Producto_C {
            int executar =  parametro.executeUpdate();
            C.cerrarConexion();
          
-           JOptionPane.showMessageDialog(null,Integer.toString(executar) + " Registro Eliminado","Conexion Exitosa",JOptionPane.WARNING_MESSAGE);          
+           
             }
         catch(SQLException | HeadlessException ex)
             {
                   C.cerrarConexion();
-                    JOptionPane.showMessageDialog(null,ex.getMessage(),"Error en Query",JOptionPane.ERROR_MESSAGE);
+                
             }
         }
      
@@ -157,19 +157,21 @@ public class Producto_C {
      C.abrirConexion();
      String query;
       try{
-     query = "SELECT * FROM productos WHERE producto like '"+getProducto()+"' and Activo like '1'";
+     query = "SELECT producto FROM productos WHERE producto like '"+getProducto()+"' and Activo like '1'";
            parametro = (PreparedStatement) C.conexionBd.prepareStatement(query);
         
            ResultSet r = parametro.executeQuery();
        
-           if(r!=null)
+        if(r.next())
        {
            resultado="EL producto ya existe.";
        }
        
       }
       catch(Exception ex){
-      resultado="Error";}
+          ex.toString();
+      resultado="Error";
+      }
      return resultado;
      }
      

@@ -3,7 +3,19 @@
     Created on : 12-nov-2016, 20:38:32
     Author     : Jose
 --%>
-<%
+<%          ArrayList IdProducto=new ArrayList();
+            ArrayList Cantidad= new ArrayList();
+            ArrayList Precios=new ArrayList();
+            IdProducto=(ArrayList) session.getAttribute("ArrayProducto");
+            Cantidad=(ArrayList) session.getAttribute("ArrayCantidad");
+            Precios=(ArrayList) session.getAttribute("ArrayPrecios");
+            if(IdProducto==null)
+            {IdProducto=new ArrayList();}
+            if(Cantidad==null)
+            {Cantidad=new ArrayList();}
+            if(Precios==null)
+            {Precios=new ArrayList();}
+            
             String nombre_variable="";
             String estado="false";
             if(session.getAttribute("MSG")!=null)
@@ -71,8 +83,16 @@
                 <th>Fecha Ingreso</th>
                     <td><input class="form-control" type="Date" name="fecha_ingreso"></td>
                 </tr>
+            </table>
+                <input class="btn btn-success" type="submit" value="Insertar" name="Insertar" />
+                <input class="btn btn-danger" type="submit" value="Eliminar" name="Eliminar" />
+                 <label visible="<%=estado%>" > <%= nombre_variable%> </label>
+        </form>
                 
-               <tr>
+                  
+                  <form>
+                      <table class="table" style="display: inline-block;">
+                       <tr>
                 <th>Id Producto</th>
                 <td><select class="form-control" type="text" name="idProducto">
                 <%  MaestroDetalleV_C p=new MaestroDetalleV_C();
@@ -82,8 +102,9 @@
                                 <option value="<%=dat%>"><%=dat%></option>
                                <% } %>        
                 <select></td>
-                </tr>
-                
+                <td><button type="submit" name="Ag">Agregar</button></td>
+                               </tr>
+                               
                 <tr>
                 <th>Cantidad</th>
                 <td><input class="form-control" type="text" name="cantidad"></td>
@@ -93,12 +114,38 @@
                 <th>Precio Unitario</th>
                 <td><input class="form-control" type="text" name="precio_unitario"></td>
                 </tr>
-                
-            </table>
-            
-                <input class="btn btn-success" type="submit" value="Insertar" name="Insertar" />
-                <input class="btn btn-danger" type="submit" value="Eliminar" name="Eliminar" />
-        </form>
+                  </table>
+                <% 
+                    try{
+                    String probando="";
+                    int datoc;
+                    if(request.getParameter("Ag")!=null)
+                     {
+                   probando=request.getParameter("idProducto");
+                   
+                   datoc = probando.indexOf(")");
+                   if(request.getParameter("cantidad")!=null && request.getParameter("precio_unitario")!="")
+                   {
+                   IdProducto.add(Integer.parseInt(probando.substring(0, datoc)));
+                   Cantidad.add(request.getParameter("cantidad"));
+                   Precios.add(request.getParameter("precio_unitario"));
+                   }
+                   else{ IdProducto.add(Integer.parseInt(probando.substring(0, datoc)));
+                   Cantidad.add("0");
+                   Precios.add("0");}
+                   session.setAttribute("ArrayProducto", IdProducto);
+                    session.setAttribute("ArrayCantidad", Cantidad);
+                     session.setAttribute("ArrayPrecios", Precios);
+                     }
+                    }
+                    catch(Exception ex)
+                            {
+                            ex.toString();
+                            }
+                    %> 
+
+               
+                  </form>
     </div>
 </div>
                  <% request.getSession().setAttribute("MSG",null);
