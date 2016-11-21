@@ -1,3 +1,5 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="Clases.Conexion"%>
 <%String nombre_variable="";
             String estado="false";
             if(session.getAttribute("MSG")!=null)
@@ -16,6 +18,9 @@
                         }
                 else if((String)session.getAttribute("MSG")=="Existe") 
                         { nombre_variable="El nombre de la marca ya existe.";
+                        }
+                else if((String)session.getAttribute("MSG")=="Error") 
+                        { nombre_variable="No se ha podido lleva a cabo la tarea.";
                         }
            }
             if (session.getAttribute("esta")==null)
@@ -40,8 +45,39 @@
             <input class="btn btn-danger" type="submit" name="Eliminar" value="Eliminar"/>
             <label visible="<%= estado %>"> <%= nombre_variable%> </label>
             <BR>
-            <a href="Productos.jsp">IR A PRODUCTOS</a>
+            <a href="Productos.jsp" style="font-size:13px;">IR A PRODUCTOS</a>
         </form>
+            
+            
+         <h3>Marcas Actuales</h3>   
+                            <%
+        Conexion C;
+        C = new Conexion();
+        C.abrirConexion();
+
+        String query="";
+        query = "SELECT marca FROM marcas where Activo like '1' ";
+
+        ResultSet consulta = C.conexionBd.createStatement().executeQuery(query);
+
+        out.println("<table class='table table-hover'>");
+        while (consulta.next()) 
+            {
+                                    
+            String marca = consulta.getString("marca");
+       
+            out.println("<tr>");
+                            
+            out.println("<td>"+ marca +"</td>");
+                           
+            out.println("</tr>");
+           
+            }
+         out.println("</table>");
+        C.cerrarConexion();
+                %>
+            
+            
 </div>
  </div>
         

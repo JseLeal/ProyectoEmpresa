@@ -37,6 +37,7 @@ public class CContra_S extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            try{
             CContra_C US=new CContra_C();
              String ContrasenaActual=(String) request.getParameter("ContrasenaA");
             String Contrasena=(String) request.getParameter("Contrasena");
@@ -67,8 +68,16 @@ public class CContra_S extends HttpServlet {
             
             }
 
-        }
-        
+            }catch(Exception e){
+                    request.getSession().setAttribute("MSG","Error");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("CContra.jsp");
+            }
+      }catch(Exception e){
+                    request.getSession().setAttribute("MSG","Error");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("CContra.jsp");
+            }   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

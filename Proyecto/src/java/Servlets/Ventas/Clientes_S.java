@@ -36,12 +36,19 @@ public class Clientes_S extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+            try{
             String idCliente = request.getParameter("idCliente");
             String Nombre=request.getParameter("Nombre");
             String Apellido=request.getParameter("Apellido");
             String NIT=request.getParameter("NIT");
             String Genero=request.getParameter("Genero");
+            if ("Femenino".equals(Genero)){
+                Genero="1";
+            }
+            else if("Masculino".equals(Genero)){
+            Genero="0";
+            }
+            
             String Telefono=request.getParameter("Telefono");
             String CorreoE=request.getParameter("CorreoE");
             String FechaIngreso=request.getParameter("FechaIngreso");
@@ -53,8 +60,8 @@ public class Clientes_S extends HttpServlet {
             if(request.getParameter("Insertar")!=null && request.getParameter("Modificar")==null && 
                request.getParameter("Eliminar")==null){
                 
-                try{ 
-            varclientes.setNombre(Nombre);
+            try{ 
+            varclientes.setNombres(Nombre);
             varclientes.setApellidos(Apellido);
             varclientes.setNIT(Integer.parseInt(NIT));
             varclientes.setGenero(Integer.parseInt(Genero));
@@ -65,9 +72,8 @@ public class Clientes_S extends HttpServlet {
             
             request.getSession().setAttribute("MSG","Si");
             request.getSession().setAttribute("esta","true");
-            response.sendRedirect("Clientes.jsp");
-                             
-                } 
+            response.sendRedirect("Clientes.jsp");                 
+               } 
                 catch (SQLException ex) {
                 request.getSession().setAttribute("MSG","No");
                 request.getSession().setAttribute("esta","true");
@@ -79,8 +85,7 @@ public class Clientes_S extends HttpServlet {
             else if(request.getParameter("Insertar")==null && request.getParameter("Modificar")!=null && 
                     request.getParameter("Eliminar")==null){
             try {    
-            
-            varclientes.setNombre(Nombre);
+            varclientes.setNombres(Nombre);
             varclientes.setApellidos(Apellido);
             varclientes.setIdCliente(varclientes.ConsultaC());
             varclientes.setNIT(Integer.parseInt(NIT));
@@ -104,13 +109,20 @@ public class Clientes_S extends HttpServlet {
             else if(request.getParameter("Insertar")==null && request.getParameter("Modificar")==null && 
                     request.getParameter("Eliminar")!=null){
                 try {
-                    varclientes.setNombre(Nombre);
+                    if(!"".equals(Nombre)&& !"".equals(Apellido)){
+                    varclientes.setNombres(Nombre);
                     varclientes.setApellidos(Apellido);
                     varclientes.setIdCliente(varclientes.ConsultaC());
                     varclientes.Eliminar();
                     request.getSession().setAttribute("MSG","El");
                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("Clientes.jsp");
+                    }
+                    else{
+                    request.getSession().setAttribute("MSG","Error");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("Clientes.jsp");
+                    }
                 } 
                 catch (SQLException ex) {
                     request.getSession().setAttribute("MSG","NoEl");
@@ -118,8 +130,13 @@ public class Clientes_S extends HttpServlet {
                     response.sendRedirect("Clientes.jsp");
                 }
             }
-
         }
+        catch(Exception e){
+            request.getSession().setAttribute("MSG","Error");
+            request.getSession().setAttribute("esta","true");
+            response.sendRedirect("Clientes.jsp");
+        }
+      }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -49,11 +49,12 @@ public class Login_S extends HttpServlet {
                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("index.jsp"); }
              }
-             catch(NoSuchAlgorithmException | IOException e){   request.getSession().setAttribute("MSG","Error");
+             catch(NoSuchAlgorithmException | IOException e){   
+                    request.getSession().setAttribute("MSG","Error");
                     request.getSession().setAttribute("esta","true");
-                    response.sendRedirect("index.jsp"); }
-         
-         }
+                    response.sendRedirect("index.jsp");
+             }
+          }
         }
     }
 

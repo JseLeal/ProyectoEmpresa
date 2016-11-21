@@ -33,8 +33,9 @@ public class Puestos_S extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            try{
                String puesto=request.getParameter("puesto");
-            if(!"".equals(puesto))
+                    if(!"".equals(puesto))
                     {
                         puesto marc= new puesto();
                         
@@ -44,9 +45,9 @@ public class Puestos_S extends HttpServlet {
                 {
                     try{
                     if(marc.Verificar()==null){
-                        marc.ingresar();
+                     marc.ingresar();
                      request.getSession().setAttribute("MSG","Si");
-                    request.getSession().setAttribute("esta","true");
+                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("puestos.jsp");  
                     }
                     else{marc.Modificar();
@@ -60,17 +61,29 @@ public class Puestos_S extends HttpServlet {
             }
             else if(request.getParameter("Eliminar")!=null){
                 try{
-                marc.Eliminar();
-             request.getSession().setAttribute("MSG","El");
+                    marc.Eliminar();
+                    request.getSession().setAttribute("MSG","El");
                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("puestos.jsp");  
                 }catch(Exception e){request.getSession().setAttribute("MSG","NoEl");
                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("puestos.jsp"); }
             }
-            }
+          }else{
+             request.getSession().setAttribute("MSG","Error");
+             request.getSession().setAttribute("esta","true");
+             response.sendRedirect("puestos.jsp");         
+               }
+        }catch(Exception e){
+           request.getSession().setAttribute("MSG","Error");
+           request.getSession().setAttribute("esta","true");
+           response.sendRedirect("puestos.jsp");
         }
-        
+      }catch(Exception e){
+           request.getSession().setAttribute("MSG","Error");
+           request.getSession().setAttribute("esta","true");
+           response.sendRedirect("puestos.jsp");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

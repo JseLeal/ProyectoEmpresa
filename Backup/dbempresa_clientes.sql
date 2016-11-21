@@ -31,8 +31,9 @@ CREATE TABLE `clientes` (
   `telefono` varchar(25) NOT NULL,
   `correo_electronico` varchar(45) NOT NULL,
   `fechaingreso` datetime NOT NULL,
+  `Activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -44,4 +45,4 @@ CREATE TABLE `clientes` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-17 20:35:41
+-- Dump completed on 2016-11-19 15:18:38

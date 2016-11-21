@@ -36,7 +36,7 @@ public class MaestroDetalleV_S extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+            try{
             int datoC=0;
             int datoE=0;
             int datoP=0;
@@ -67,12 +67,17 @@ public class MaestroDetalleV_S extends HttpServlet {
             maestroventas.setIdCliente((Integer.parseInt(idCliente.substring(0, datoC))));
             maestroventas.setIdEmpleado(Integer.parseInt(idEmpleado.substring(0, datoE)));
             maestroventas.setFecha_ingreso(fecha_ingreso);
+<<<<<<< HEAD
              maestroventas.setIdProducto((ArrayList)(request.getSession().getAttribute("ArrayProducto")));
             maestroventas.setCantidad((ArrayList)(request.getSession().getAttribute("ArrayCantidad")));
             maestroventas.setPrecio_unitario((ArrayList)(request.getSession().getAttribute("ArrayPrecios")));
             
+=======
+            maestroventas.setIdProducto(Integer.parseInt(idProducto.substring(0,datoP)));
+            maestroventas.setCantidad(cantidad);
+            maestroventas.setPrecio_unitario(Integer.parseInt(precio_unitario));            
+>>>>>>> origin/Union
             maestroventas.Insertar();
-          
             maestroventas.modificarExistencia();
               request.getSession().setAttribute("ArrayProducto",null);
              request.getSession().setAttribute("ArrayCantidad",null);
@@ -96,7 +101,6 @@ public class MaestroDetalleV_S extends HttpServlet {
             else if(request.getParameter("Insertar")==null && 
                     request.getParameter("Eliminar")!=null){
                 try {
-               
                 request.getSession().setAttribute("MSG","El");
                 request.getSession().setAttribute("esta","true");
                 response.sendRedirect("MaestroDetalleV.jsp");
@@ -109,12 +113,23 @@ public class MaestroDetalleV_S extends HttpServlet {
           
           }
             
+<<<<<<< HEAD
         }catch (Exception e) {
                      request.getSession().setAttribute("ArrayProducto",null);
              request.getSession().setAttribute("ArrayCantidad",null);
               request.getSession().setAttribute("ArrayPrecios",null);
                     response.sendRedirect("MaestroDetalleV.jsp");
                 }
+=======
+        }
+        catch (Exception e) {
+        request.getSession().setAttribute("MSG","Error");
+        request.getSession().setAttribute("esta","true");
+        response.sendRedirect("MaestroDetalleV.jsp");
+        }
+      }
+        
+>>>>>>> origin/Union
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

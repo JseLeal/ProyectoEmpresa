@@ -4,6 +4,10 @@
     Author     : Jose
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="Clases.Conexion"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Clases.Organizacion.empleados"%>
 <%
  String nombre_variable="";
             String estado="false";
@@ -29,6 +33,9 @@
                         }
                 else if((String)session.getAttribute("MSG")=="Existe") 
                         { nombre_variable="El empleado ya existe.";
+                        }
+                else if((String)session.getAttribute("MSG")=="Error") 
+                        { nombre_variable="No se ha podido llevar a cabo la tarea.";
                         }
            }
             if (session.getAttribute("esta")==null)
@@ -72,15 +79,33 @@
                 <td><input class="form-control" type="text" id="DPI" name="DPI"></td>
                 </tr>
                 
-                <tr>
+               <tr>
                     <th>Genero</th>
-                    <td><input class="form-control" type="text" id="Genero" name="Genero"></td>
+                    <td>
+                    <select class="form-control" id="Genero" name="Genero">
+                        <option>Seleccionar</option>
+                        <option>Femenino</option>
+                        <option>Masculino</option>
+                    </select>
+                    </td>
                 </tr>
                 
                 <tr>
                 <th>Fecha de Nacimiento</th>
                 <div class="col-xs-10">
                     <td><input class="form-control" type="date" id="Fecha_nacimiento" name="Fecha_nacimiento"></td>
+                </tr>
+                
+                <tr> 
+                    <th>Puestos</th>
+                <td><select class="form-control" type="text" name="idPuesto">
+                <%  empleados e=new empleados();
+                                ArrayList <String> L= e.mostrarPuestos();
+                                for (String dat:L)
+                                  { %>
+                                <option value="<%=dat%>"><%=dat%></option>
+                               <% } %>        
+                <select></td>
                 </tr>
                 
                 <tr>
@@ -101,6 +126,43 @@
                 <input class="btn btn-danger" type="submit" value="Eliminar" name="Eliminar" />
                 <label visible="<%= estado %>"> <%= nombre_variable%> </label>
         </form>
+        
+        <h3>Empleados Actuales</h3>
+                <%
+        Conexion C;
+        C = new Conexion();
+        C.abrirConexion();
+
+        String query="";
+        query = "SELECT nombres, apellidos, direccion, telefono FROM empleados where Activo like '1' ";
+
+        ResultSet consulta = C.conexionBd.createStatement().executeQuery(query);
+
+        out.println("<table class='table table-hover'>");
+        while (consulta.next()) 
+            {
+                                    
+            String nombres = consulta.getString("nombres");
+            String apellidos = consulta.getString("apellidos");
+            String direccion = consulta.getString("direccion");
+            String telefono = consulta.getString("telefono");
+       
+            out.println("<tr>");
+                            
+            out.println("<td>" + nombres + "</td>");
+            out.println("<td>" + apellidos + "</td>");
+            out.println("<td>" + direccion + "</td>");
+            out.println("<td>" + telefono + "</td>");
+                           
+            out.println("</tr>");
+           
+            }
+         out.println("</table>");
+        C.cerrarConexion();
+                %>
+        
+        
+        
     </div>
  </div>
 <%    request.getSession().setAttribute("MSG",null);

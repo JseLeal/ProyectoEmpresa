@@ -23,6 +23,7 @@ public class Clientes_C {
     public int Telefono;
     public String CorreoElectronico;
     public String Fechaingreso;
+    public int Activo;
     PreparedStatement campo;
 
     public int getIdCliente() {
@@ -57,12 +58,16 @@ public class Clientes_C {
         return Fechaingreso;
     }
 
+    public int getActivo() {
+        return Activo;
+    }
+
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
-    public void setNombre(String Nombre) {
-        this.Nombres = Nombre;
+    public void setNombres(String Nombres) {
+        this.Nombres = Nombres;
     }
 
     public void setApellidos(String Apellidos) {
@@ -89,6 +94,10 @@ public class Clientes_C {
         this.Fechaingreso = Fechaingreso;
     }
 
+    public void setActivo(int Activo) {
+        this.Activo = Activo;
+    }
+
     public void Insertar() throws SQLException
     {
         
@@ -97,7 +106,7 @@ public class Clientes_C {
     C.abrirConexion(); 
     String query="";
     
-    query="INSERT INTO clientes (nombres, apellidos, NIT, genero, telefono, correo_electronico, fechaingreso)" + "VALUES (?,?,?,?,?,?,?)";
+    query="INSERT INTO clientes (nombres, apellidos, NIT, genero, telefono, correo_electronico, fechaingreso, Activo)" + "VALUES (?,?,?,?,?,?,?,?)";
 
     campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
 
@@ -108,6 +117,7 @@ public class Clientes_C {
     campo.setInt(5, getTelefono());
     campo.setString(6, getCorreoElectronico());
     campo.setString (7, getFechaingreso());
+    campo.setInt(8,1);
     campo.executeUpdate();
     C.cerrarConexion();    
     }
@@ -138,7 +148,7 @@ public class Clientes_C {
            campo.setString(6, getCorreoElectronico());
            campo.setString(7, getFechaingreso());
                   
-         campo.executeUpdate();
+           campo.executeUpdate();
            C.cerrarConexion();
         }
         catch(Exception e){
@@ -176,10 +186,10 @@ public class Clientes_C {
     
     campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
     
-    ResultSet guardar=campo.executeQuery();
+    ResultSet recibir=campo.executeQuery();
     
-    while(guardar.next()){
-    id=guardar.getInt("idCliente");
+    while(recibir.next()){
+    id=recibir.getInt("idCliente");
     }
     return id;           
   }

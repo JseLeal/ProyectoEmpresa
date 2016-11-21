@@ -36,6 +36,7 @@ public class EmpleadosS extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            try{
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -47,15 +48,24 @@ public class EmpleadosS extends HttpServlet {
             out.println("</html>");
             
             
-            String Nombre = request.getParameter("Nombre");
-            String  Apellido = request.getParameter("Apellido");
+            String Nombre = request.getParameter("Nombres");
+            String  Apellido = request.getParameter("Apellidos");
             String  Direccion= request.getParameter("Direccion");
             String  Telefono= request.getParameter("Telefono");
             String  DPI= request.getParameter("DPI");
             String  Genero= request.getParameter("Genero");
+             if ("Femenino".equals(Genero)){
+                Genero="1";
+            }
+            else if("Masculino".equals(Genero)){
+            Genero="0";
+            }
             String  Fecha_nacimiento= request.getParameter("Fecha_nacimiento");
+            String  idPuesto= request.getParameter("idPuesto");
             String  Fecha_inicio_labores= request.getParameter("Fecha_inicio_labores");
             String  FechaIngreso= request.getParameter("FechaIngreso");
+            int DatoP=0;
+            DatoP=idPuesto.indexOf(")");
             
             empleados varempleados=new empleados(); 
             
@@ -70,6 +80,7 @@ public class EmpleadosS extends HttpServlet {
             varempleados.setDPI(DPI);
             varempleados.setGenero(Integer.parseInt(Genero));
             varempleados.setFecha_nacimiento(Fecha_nacimiento);
+            varempleados.setIdPuesto((Integer.parseInt(idPuesto.substring(0, DatoP))));
             varempleados.setFecha_inicio_labores(Fecha_inicio_labores);
             varempleados.setFechaingreso(FechaIngreso);
             varempleados.Insertar();
@@ -115,6 +126,7 @@ public class EmpleadosS extends HttpServlet {
             else if(request.getParameter("Insertar")==null && request.getParameter("Modificar")==null && 
                     request.getParameter("Eliminar")!=null){
                try {
+                if(!"".equals(Nombre)&& !"".equals(Apellido)){
                 varempleados.setNombres(Nombre);
                 varempleados.setApellidos(Apellido);
                 varempleados.setIdEmpleado(varempleados.ConsultaEmp());
@@ -122,14 +134,25 @@ public class EmpleadosS extends HttpServlet {
                 request.getSession().setAttribute("MSG","El");
                 request.getSession().setAttribute("esta","true");
                 response.sendRedirect("empleados.jsp");
-               } 
+                   }
+                else{
+                    request.getSession().setAttribute("MSG","Error");
+                    request.getSession().setAttribute("esta","true");
+                    response.sendRedirect("empleados.jsp");
+                    }
+               }
                 catch (SQLException e) {
                   request.getSession().setAttribute("MSG","NoEl");
                   request.getSession().setAttribute("esta","true");
                   response.sendRedirect("empleados.jsp");
                 }
           }
-        }
+        }catch (Exception e) {
+                  request.getSession().setAttribute("MSG","Error");
+                  request.getSession().setAttribute("esta","true");
+                  response.sendRedirect("empleados.jsp");
+                }      
+      }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

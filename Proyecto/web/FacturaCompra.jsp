@@ -35,6 +35,9 @@
                 else if((String)session.getAttribute("MSG")=="Existe") 
                         { nombre_variable="La factura compra ya existe.";
                         }
+                else if((String)session.getAttribute("MSG")=="Error") 
+                        { nombre_variable="No se ha podido llevar a cabo la tarea.";
+                        }
            }
             if (session.getAttribute("esta")==null)
             {
@@ -55,10 +58,6 @@
         
         <form action="FacturaCompra_S" method="POST">
             <table class="table">
-                <tr>
-                <td> </td> <td> </td> <td> </td> <td> </td> <td> </td> <td> </td>
-                </tr>
-                
                 <tr>
                 <th>No. Orden Compra</th>
                 <td><input class="form-control" type="text" name="nofactura"></td>

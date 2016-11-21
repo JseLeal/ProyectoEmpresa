@@ -24,12 +24,19 @@ public class FacturaCompra_C {
     private String fecha_ingreso;
     //Campos VentaDetalle
     private int idCompra_detalle;
+<<<<<<< HEAD
+    private int idProducto;
+    private int cantidad;
+    private double precio_unitario;
+
+=======
     private ArrayList idProducto;
     private ArrayList cantidad;
     private ArrayList precio_unitario;
     public int ids[]; 
     public int cants[]; 
     public double precios[]; 
+>>>>>>> origin/Union
     PreparedStatement campo,parametro,campo2;
     
         
@@ -86,9 +93,15 @@ public class FacturaCompra_C {
     for(int z=0;z<i;z++)
     {
     campo2.setInt(1,cons);
+<<<<<<< HEAD
+    campo2.setInt(2, getIdProducto());
+    campo2.setInt(3, getCantidad());
+    campo2.setDouble(4, getPrecio_unitario());
+=======
     campo2.setInt(2, ids[z]);
     campo2.setInt(3, cants[z]);
     campo2.setDouble(4, precios[z]);
+>>>>>>> origin/Union
     campo2.executeUpdate();
     }
     
@@ -102,24 +115,29 @@ public class FacturaCompra_C {
 
 }
      
-  public int Eliminar () throws SQLException {
-        
+  public void Eliminar () throws SQLException {       
     Conexion C=new Conexion();
     C.abrirConexion(); 
-    String query;
-    int idE=0;
+    String queryC,queryE;
+    int id=0;
     
-    query=" SELECT  idCompra FROM ventas where nofactura like  '" + getNofactura()+ "'";
+    queryC=" SELECT  idcompra FROM compras where no_orden_compra like  '" + getNofactura()+ "'";
     
-    campo=(PreparedStatement) C.conexionBd.prepareStatement(query);
+    campo=(PreparedStatement) C.conexionBd.prepareStatement(queryC);
     
     ResultSet guardar=campo.executeQuery();
     
     while(guardar.next()){
-    idE=guardar.getInt("idVenta");
+    id=guardar.getInt("idcompra");
     }
-    return idE;
     
+    queryE="delete from compras where idcompra like '" + id + "'";
+    
+    campo=(PreparedStatement) C.conexionBd.prepareStatement(queryE); 
+          
+      campo.executeUpdate();
+      C.cerrarConexion();
+ 
   }
   
   public int Consultar() throws SQLException{
@@ -170,6 +188,29 @@ public class FacturaCompra_C {
        return lista;
     }
   
+  public ArrayList <String> mostrarProductos(){
+  ArrayList<String> lista= new ArrayList<>();
+  Conexion C=new Conexion();
+        try{
+            C.abrirConexion();
+            String query;
+            query = "SELECT idProducto,producto FROM productos" ;
+            ResultSet consulta =  C.conexionBd.createStatement().executeQuery(query);
+                   while (consulta.next())
+                     {            
+                       lista.add(consulta.getInt("idProducto")+")"+consulta.getString("producto"));
+                     }
+               C.cerrarConexion();
+               return lista;
+            } 
+         catch(Exception ex)
+             {
+                   C.cerrarConexion();
+             }
+            
+       return lista;
+    }
+  
  public void modificarExistencia() throws SQLException{
       Conexion C=new Conexion();
       C.abrirConexion();
@@ -188,12 +229,22 @@ public class FacturaCompra_C {
     while(exis.next()){
     existencia=exis.getInt("existencia");
     }
+<<<<<<< HEAD
+    
+   
+     query = "update productos set existencia = ? where idProducto='"+getIdProducto()+"'";
+      
+      parametro=(PreparedStatement) C.conexionBd.prepareStatement(query); 
+      
+      parametro.setInt(1, (existencia+((getCantidad()))));      
+=======
        
      query = "update productos set existencia = ? where idProducto='"+ids[u]+"'";
       
       parametro=(PreparedStatement) C.conexionBd.prepareStatement(query); 
       
       parametro.setInt(1, (existencia+  (cants[u] ) ) );      
+>>>>>>> origin/Union
       parametro.executeUpdate();
       }
       C.cerrarConexion();
@@ -257,11 +308,19 @@ public class FacturaCompra_C {
         this.idProducto = idProducto;
     }
 
+<<<<<<< HEAD
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+=======
     public ArrayList getCantidad() {
         return cantidad;
     }
 
     public void setCantidad(ArrayList cantidad) {
+>>>>>>> origin/Union
         this.cantidad = cantidad;
     }
 
