@@ -8,6 +8,7 @@ package Servlets.Compras;
 import Clases.Compras.FacturaCompra_C;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -55,22 +56,25 @@ public class FacturaCompra_S extends HttpServlet {
             maestroventas.setFechafactura(fechafactura);
             maestroventas.setIdProveedor((Integer.parseInt(idProveedor.substring(0, datoC))));
             maestroventas.setFecha_ingreso(fecha_ingreso);
-            maestroventas.setIdProducto(Integer.parseInt(idProducto));
-            maestroventas.setCantidad(cantidad);
-            maestroventas.setPrecio_unitario(Integer.parseInt(precio_unitario));
+            maestroventas.setIdProducto((ArrayList)(request.getSession().getAttribute("ArrayProducto")));
+            maestroventas.setCantidad((ArrayList)(request.getSession().getAttribute("ArrayCantidad")));
+            maestroventas.setPrecio_unitario((ArrayList)(request.getSession().getAttribute("ArrayPrecios")));
             
             maestroventas.Insertar();
             maestroventas.modificarExistencia();
+            request.getSession().setAttribute("ArrayProducto",null);
+             request.getSession().setAttribute("ArrayCantidad",null);
+              request.getSession().setAttribute("ArrayPrecios",null);
             request.getSession().setAttribute("MSG","Si");
             request.getSession().setAttribute("esta","true");
-            response.sendRedirect("MaestroDetalleV.jsp"); 
+            response.sendRedirect("FacturaCompra.jsp"); 
             
             }
             catch(Exception e){
                 String ex=e.getMessage()+e.toString();
                 request.getSession().setAttribute("MSG","No");
                 request.getSession().setAttribute("esta","true");
-                response.sendRedirect("MaestroDetalleV.jsp");
+                response.sendRedirect("FacturaCompra.jsp");
                 
                 }
             }
@@ -83,14 +87,14 @@ public class FacturaCompra_S extends HttpServlet {
                
                 request.getSession().setAttribute("MSG","El");
                 request.getSession().setAttribute("esta","true");
-                response.sendRedirect("MaestroDetalleV.jsp"); 
+                response.sendRedirect("FacturaCompra.jsp"); 
 
                } 
                 catch (Exception e) {
                 }
           }
             
-        }catch(Exception e){ response.sendRedirect("MaestroDetalleV.jsp"); }
+        }catch(Exception e){ response.sendRedirect("FacturaCompra.jsp"); }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

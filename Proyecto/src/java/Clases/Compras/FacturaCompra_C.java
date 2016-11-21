@@ -24,10 +24,12 @@ public class FacturaCompra_C {
     private String fecha_ingreso;
     //Campos VentaDetalle
     private int idCompra_detalle;
-    private int idProducto;
-    private String cantidad;
-    private double precio_unitario;
-
+    private ArrayList idProducto;
+    private ArrayList cantidad;
+    private ArrayList precio_unitario;
+    public int ids[]; 
+    public int cants[]; 
+    public double precios[]; 
     PreparedStatement campo,parametro,campo2;
     
         
@@ -58,16 +60,44 @@ public class FacturaCompra_C {
     C.abrirConexion();
     campo2=(PreparedStatement) C.conexionBd.prepareStatement(queryVentasDetalle);
     
+    ids=new int[(getIdProducto().size())];
+    int i=0;
+    for(Object a: getIdProducto())
+    {
+        ids[i] =   (int) a;
+        i++;
+    }   
+    
+    cants=new int[(getCantidad().size())];
+    i=0;
+    for(Object g: getCantidad())
+    {
+        cants[i] = Integer.parseInt((String) g);
+        i++;
+    } 
+    precios=new double[(getPrecio_unitario().size())];
+    i=0;
+    for(Object t: getPrecio_unitario())
+    {
+        precios[i] =  Double.parseDouble((String) t);
+        i++;
+    } 
+    
+    for(int z=0;z<i;z++)
+    {
     campo2.setInt(1,cons);
-    campo2.setInt(2, getIdProducto());
-    campo2.setString(3, getCantidad());
-    campo2.setDouble(4, getPrecio_unitario());
+    campo2.setInt(2, ids[z]);
+    campo2.setInt(3, cants[z]);
+    campo2.setDouble(4, precios[z]);
     campo2.executeUpdate();
+    }
+    
     C.cerrarConexion();
         }
     }
         catch(Exception e)
-        {         
+        {
+            e.toString();
         }
 
 }
@@ -147,7 +177,9 @@ public class FacturaCompra_C {
       String query;
       int existencia=0;
       
-    queryE=" SELECT existencia FROM productos WHERE idProducto like '" + getIdProducto() + "'  and Activo like '1'";
+      for(int u=0;u< getIdProducto().size();u++)
+      {
+    queryE=" SELECT existencia FROM productos WHERE idProducto like '" + ids[u] + "'  and Activo like '1'";
  
     parametro=(PreparedStatement) C.conexionBd.prepareStatement(queryE);
     
@@ -156,16 +188,16 @@ public class FacturaCompra_C {
     while(exis.next()){
     existencia=exis.getInt("existencia");
     }
-    
-  
-    
-     query = "update productos set existencia = ? where idProducto='"+getIdProducto()+"'";
+       
+     query = "update productos set existencia = ? where idProducto='"+ids[u]+"'";
       
       parametro=(PreparedStatement) C.conexionBd.prepareStatement(query); 
       
-      parametro.setInt(1, (existencia+(Integer.parseInt(getCantidad()))));      
+      parametro.setInt(1, (existencia+  (cants[u] ) ) );      
       parametro.executeUpdate();
+      }
       C.cerrarConexion();
+              
   }
  
  
@@ -217,27 +249,27 @@ public class FacturaCompra_C {
         this.idCompra_detalle = idCompra_detalle;
     }
 
-    public int getIdProducto() {
+    public ArrayList getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(int idProducto) {
+    public void setIdProducto(ArrayList idProducto) {
         this.idProducto = idProducto;
     }
 
-    public String getCantidad() {
+    public ArrayList getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(ArrayList cantidad) {
         this.cantidad = cantidad;
     }
 
-    public double getPrecio_unitario() {
+    public ArrayList getPrecio_unitario() {
         return precio_unitario;
     }
 
-    public void setPrecio_unitario(double precio_unitario) {
+    public void setPrecio_unitario(ArrayList precio_unitario) {
         this.precio_unitario = precio_unitario;
     }
       

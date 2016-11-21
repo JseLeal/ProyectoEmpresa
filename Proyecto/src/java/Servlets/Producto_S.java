@@ -6,15 +6,20 @@
 package Servlets;
 
 import Clases.Producto_C;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -30,52 +35,78 @@ public class Producto_S extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
+    @SuppressWarnings("empty-statement")
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-         
-            
-            String Producto = request.getParameter("producto");
-            String idMarca = request.getParameter("idMarca");
-            String Descripcion = request.getParameter("Descripcion");
-            String Imagen = request.getParameter("Imagen");
-            String Precio_costo = request.getParameter("precio_costo");
-            String Precio_venta = request.getParameter("precio_venta");
-            String existencia = request.getParameter("existencia");
-            String fecha_ingreso = request.getParameter("fecha_ingreso");
-            int posc=idMarca.indexOf(')');
+       String[] Campos = new String[10];
+       String[] Datos = new String[10];
+       int i=0;
+            String url="C:\\Users\\Jose\\Desktop\\Proyecto\\ProyectoEmpresa\\Proyecto\\web\\IMGP";
+                  if(ServletFileUpload.isMultipartContent(request)){
+            try {
+                List<FileItem> multiparts = new ServletFileUpload(
+                                         new DiskFileItemFactory()).parseRequest(request);
+              
+                for(FileItem item : multiparts){
+                    
+                    if(!item.isFormField()){
+                        String name = (Datos[0]+".JPG");
+                        item.write( new File(url + File.separator + name));
+                    }
+                    else
+                    {
+                        Campos[i]=item.getFieldName();
+                        Datos[i]=item.getString();
+                         i++;
+                         
+                    }
+                   
+                }
+           
+            } catch (Exception ex) 
+            { 
+                ex.toString();
+            }   }   
+
+
+           /*DiskFileItemFactory factory= new DiskFileItemFactory();
+                factory.setRepository(new File(url));
+                ServletFileUpload upload = new ServletFileUpload(factory);
+                try{
+                    List<FileItem> partes=upload.parseRequest(request);
+                    for(FileItem items:partes){File file=new File(url,items.getName());
+                    items.write(file);}
+                }catch(Exception ex)
+                {
+                ex.toString();
+                };}*/
+                
+            String Producto =Datos[0];
+            String idMarca = Datos[1];
+            String Descripcion =Datos[2];
+            String Imagen =""; //request.getParameter("Imagen");
+            String Precio_costo = Datos[3];
+            String Precio_venta = Datos[4];
+            String existencia = Datos[5];
+            String fecha_ingreso = Datos[6];
+            int posc= idMarca.indexOf(')');
             
             Producto_C productonuevo = new Producto_C();
-            
-            if(request.getParameter("Buscar")!=null){
-                 if(!"".equals(Producto))
-                {
-                productonuevo.setProducto(Producto);
-                productonuevo.buscar();
-                response.sendRedirect("Productos.jsp");   
-                
-                request.getSession().setAttribute("producto", productonuevo.getProducto());
-                request.getSession().setAttribute("idMarca", productonuevo.getIdMarca());
-                request.getSession().setAttribute("Descripcion", productonuevo.getDescripcion());
-                request.getSession().setAttribute("Imagen", productonuevo.getImagen());
-                request.getSession().setAttribute("precio_costo", productonuevo.getPrecio_costo());
-                request.getSession().setAttribute("precio_venta", productonuevo.getPrecio_venta());
-                request.getSession().setAttribute("existencia", productonuevo.getExistencia());
-                }
-                 else{ response.sendRedirect("Productos.jsp");}
-            }
-            
+    
             
             //Ingresar
-            if (request.getParameter("Ingresar")!=null){
-                
+            if (Datos[7]!=null){
+                   
                 try {    
+                 productonuevo.setProducto(Producto);   
                 if(productonuevo.Verificar()==null){
                     
-                productonuevo.setProducto(Producto);
+                
                 productonuevo.setIdMarca(posc);
                 productonuevo.setDescripcion(Descripcion);
                 productonuevo.setImagen(Imagen);
@@ -108,9 +139,10 @@ public class Producto_S extends HttpServlet {
                      response.sendRedirect("Productos.jsp");   
                     Logger.getLogger(Producto_S.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            
             }
             
-            else if (request.getParameter("Modificar")!=null) {
+            else if (Datos[8]!=null) {
                 
                 try{
                 if(!"".equals(Producto))
@@ -136,7 +168,7 @@ public class Producto_S extends HttpServlet {
                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("Productos.jsp");}
             }
-            else if(request.getParameter("Eliminar")!=null){                
+            else if(Datos[9]!=null){                
                 try{
                 
                     if(!"".equals(Producto))
@@ -154,6 +186,7 @@ public class Producto_S extends HttpServlet {
                     request.getSession().setAttribute("esta","true");
                     response.sendRedirect("Productos.jsp");}
            }
+            
         }
     }
 

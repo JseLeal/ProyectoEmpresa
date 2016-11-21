@@ -1,4 +1,4 @@
-
+<%session.setAttribute("US",null);%>
 <html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Servlets.Login_S"%>

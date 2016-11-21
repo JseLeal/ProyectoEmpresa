@@ -66,12 +66,11 @@
 <%@page pageEncoding="UTF-8"%>
  <div id="page-wrapper">
     <div class="container-fluid">
-        <form action="Producto_S" method="POST" class="form-group">   
+        <form action="Producto_S" method="POST" class="form-group" enctype="multipart/form-data">   
          <table class="table" >
              <tr>
                  <th>Producto</th>
                  <td><input class="form-control" type="text" name="producto" id="producto" value='<%=request.getSession().getAttribute("producto")%>'/></td>
-                 <td><input class="btn btn-info" type="submit" name="Buscar"  value="Buscar"/></td>
              </tr>
        
              <tr>
@@ -90,10 +89,6 @@
                  <td><input class="form-control" type="text" name="Descripcion" id="Descripcion" value='<%=request.getSession().getAttribute("Descripcion")%>'/></td>
              </tr>
              <tr>
-                 <th>Imagen</th>
-                 <td><input class="form-control" type="text" name="Imagen" id="Imagen" value='<%=request.getSession().getAttribute("Imagen")%>'/></td>
-             </tr>
-             <tr>
                  <th>Precio Costo</th>
                  <td><input class="form-control" type="text" name="precio_costo" id="precio_costo" value='<%=request.getSession().getAttribute("precio_costo")%>'/></td>
              </tr>
@@ -108,6 +103,10 @@
              <tr>
                  <th>Fecha Ingreso</th>
                  <td><input type="date" name="fecha_ingreso" id="fecha_ingreso" /></td>
+             </tr>
+             <tr>
+                 <th>Imagen</th>
+                 <td><input type="file" name="Imagen" id="Imagen"  /></td>
              </tr>
          </table> 
             
