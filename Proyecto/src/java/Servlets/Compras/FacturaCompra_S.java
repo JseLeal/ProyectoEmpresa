@@ -72,6 +72,9 @@ public class FacturaCompra_S extends HttpServlet {
             }
             catch(Exception e){
                 String ex=e.getMessage()+e.toString();
+                 request.getSession().setAttribute("ArrayProducto",null);
+             request.getSession().setAttribute("ArrayCantidad",null);
+              request.getSession().setAttribute("ArrayPrecios",null);
                 request.getSession().setAttribute("MSG","No");
                 request.getSession().setAttribute("esta","true");
                 response.sendRedirect("FacturaCompra.jsp");
@@ -94,7 +97,9 @@ public class FacturaCompra_S extends HttpServlet {
                 }
           }
             
-        }catch(Exception e){ response.sendRedirect("FacturaCompra.jsp"); }
+        }catch(Exception e){   request.getSession().setAttribute("ArrayProducto",null);
+             request.getSession().setAttribute("ArrayCantidad",null);
+              request.getSession().setAttribute("ArrayPrecios",null);response.sendRedirect("FacturaCompra.jsp"); }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

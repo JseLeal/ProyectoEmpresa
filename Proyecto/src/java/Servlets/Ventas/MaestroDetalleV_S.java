@@ -8,6 +8,7 @@ package Servlets.Ventas;
 import Clases.Ventas.MaestroDetalleV_C;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -52,7 +53,7 @@ public class MaestroDetalleV_S extends HttpServlet {
             String precio_unitario=request.getParameter("precio_unitario");
             datoC=idCliente.indexOf(")");
             datoE=idEmpleado.indexOf(")");
-            datoP=idProducto.indexOf(")");
+          
             
             MaestroDetalleV_C maestroventas= new MaestroDetalleV_C();
             
@@ -66,20 +67,25 @@ public class MaestroDetalleV_S extends HttpServlet {
             maestroventas.setIdCliente((Integer.parseInt(idCliente.substring(0, datoC))));
             maestroventas.setIdEmpleado(Integer.parseInt(idEmpleado.substring(0, datoE)));
             maestroventas.setFecha_ingreso(fecha_ingreso);
-            maestroventas.setIdProducto(Integer.parseInt(idProducto.substring(0,datoP)));
-            maestroventas.setCantidad(cantidad);
-            maestroventas.setPrecio_unitario(Integer.parseInt(precio_unitario));
+             maestroventas.setIdProducto((ArrayList)(request.getSession().getAttribute("ArrayProducto")));
+            maestroventas.setCantidad((ArrayList)(request.getSession().getAttribute("ArrayCantidad")));
+            maestroventas.setPrecio_unitario((ArrayList)(request.getSession().getAttribute("ArrayPrecios")));
             
             maestroventas.Insertar();
           
             maestroventas.modificarExistencia();
-            
+              request.getSession().setAttribute("ArrayProducto",null);
+             request.getSession().setAttribute("ArrayCantidad",null);
+              request.getSession().setAttribute("ArrayPrecios",null);
             request.getSession().setAttribute("MSG","Si");
             request.getSession().setAttribute("esta","true");
             response.sendRedirect("MaestroDetalleV.jsp"); 
             }
             catch(Exception e){
                 String ex=e.getMessage()+e.toString();
+                 request.getSession().setAttribute("ArrayProducto",null);
+             request.getSession().setAttribute("ArrayCantidad",null);
+              request.getSession().setAttribute("ArrayPrecios",null);
                 request.getSession().setAttribute("MSG","No");
                 request.getSession().setAttribute("esta","true");
                 response.sendRedirect("MaestroDetalleV.jsp");
@@ -104,7 +110,9 @@ public class MaestroDetalleV_S extends HttpServlet {
           }
             
         }catch (Exception e) {
-                
+                     request.getSession().setAttribute("ArrayProducto",null);
+             request.getSession().setAttribute("ArrayCantidad",null);
+              request.getSession().setAttribute("ArrayPrecios",null);
                     response.sendRedirect("MaestroDetalleV.jsp");
                 }
     }

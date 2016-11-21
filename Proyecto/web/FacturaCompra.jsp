@@ -48,6 +48,7 @@
 <link href="Estilo/css/sb-admin.css" rel="stylesheet">
 <jsp:include page="master.jsp"></jsp:include>
 <%@page import="Servlets.Compras.FacturaCompra_S"%>
+     
 
 <div id="page-wrapper">
     <div class="container-fluid">
@@ -89,18 +90,17 @@
                 <input class="btn btn-danger" type="submit" value="Eliminar" name="Eliminar" />
                  <label visible="<%=estado%>" > <%= nombre_variable%> </label>
         </form>
-                
-                  
                   <form>
                       <table class="table" style="display: inline-block;">
                        <tr>
                 <th>Id Producto</th>
-                <td><select class="form-control" type="text" name="idProducto">
+                <td>
+                <select  onChange="cambiar();" class="form-control" type="text" name="idProducto" id="idProducto">
                 <%  MaestroDetalleV_C p=new MaestroDetalleV_C();
                                 ArrayList <String> L= p.mostrarProductos();
                                 for (String dat:L)
                                   { %>
-                                <option value="<%=dat%>"><%=dat%></option>
+                                <option  value="<%=dat%>"><%=dat%></option>
                                <% } %>        
                 <select></td>
                 <td><button type="submit" name="Ag">Agregar</button></td>
@@ -113,10 +113,9 @@
                 
                 <tr>
                 <th>Precio Unitario</th>
-                <td><input class="form-control" type="text" name="precio_unitario"></td>
-                </tr>
-                  </table>
-                <% 
+                <td><input class="form-control" type="text" name="precio_unitario"></td>             
+                </tr>   
+                    <% 
                     try{
                     String probando="";
                     int datoc;
@@ -145,10 +144,45 @@
                             }
                     %> 
 
+          </table>
+                <img id="IMP" src='' alt='img'  max-width="400px" height="250px"></img>
+                <table class="table table-condensed">
+                    <tr>
+                    <td>Producto</td>
+                    <td>Cantidad</td>
+                    <td>Precio</td>
+                    </tr>
+                    <%
+                        if(!IdProducto.isEmpty())
+                        {
+                        for(int g=0;g<IdProducto.size();g++)
+                        {
+                            out.println("<tr>");
+                            out.println("<td>"+IdProducto.get(g)+"</td>");
+                            out.println("<td>"+Cantidad.get(g)+"</td>");
+                            out.println("<td>"+Precios.get(g)+"</td>");
+                            out.println("<br/>");
+                            out.println("</tr>");
+                        }
+                        }
+                    %>
+                </table>
                
                   </form>
     </div>
 </div>
+                 <script type="text/javascript">
+                       function cambiar(){
+                        
+                       var porId=document.getElementById("idProducto").value;
+                        var po=porId.indexOf(")");
+                        var com= porId.substring((po+1));
+                        var dir="IMGP/"+com+".jpg";
+                      document.getElementById("IMP").src = dir;
+                       document.getElementById("IMP").alt =dir;
+                        }
+                </script>
+                
                  <% request.getSession().setAttribute("MSG",null);
             request.getSession().setAttribute("esta","false");
         %>
